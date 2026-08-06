@@ -1,0 +1,27 @@
+# Generated artifacts
+.specify/memory/codebase-snapshot.xml
+specs/**/diagrams/*.html
+.code-review-graph/
+
+# Dependencies / build (extend per stack)
+node_modules/
+dist/
+build/
+out/
+coverage/
+
+# Environment / secrets — never version
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local agent state
+.claude/settings.local.json
+*.bak

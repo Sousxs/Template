@@ -36,6 +36,10 @@
 
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
+**Current State** *(brownfield — mandatory when code exists)*: [summary of the existing system read from the repomix snapshot (`.specify/memory/codebase-snapshot.xml`): modules touched by this feature, integrations and patterns that MUST NOT break, or "greenfield"]
+
+**Design DNA** *(UI scope only)*: [`specs/NNN-name/design.md` (e.g. hallmark `study` output) or N/A]
+
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*

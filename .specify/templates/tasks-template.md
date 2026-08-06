@@ -9,7 +9,7 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: MANDATORY in this template — every acceptance criterion (`AC-###`) in spec.md gets ≥ 1 test task referencing it, and the AC → Test Task mapping table closes this file. The traceability gate (`check-traceability.ps1`) enforces the mapping mechanically.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -18,6 +18,19 @@ description: "Task list template for feature implementation"
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
+
+## Task Quality Rules (binding)
+
+- Zero placeholders: every task names exact files and an observable outcome.
+- Steps sized 2–5 minutes and independently verifiable; split anything bigger.
+- One commit per task, message referencing the ID: `feat: T013 <description>`.
+- `[P]` only when tasks share no files/state (safe for worktree-parallel execution).
+- Test tasks reference their AC-IDs explicitly, e.g. `T042 [US1] Test AC-003: inactive user login is rejected`.
+- Close the generated file with the mapping table:
+
+  | AC | Test task(s) |
+  |----|--------------|
+  | AC-001 | T0xx |
 
 ## Path Conventions
 

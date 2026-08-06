@@ -31,10 +31,10 @@
 
 **Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
 
-**Acceptance Scenarios**:
+**Acceptance Scenarios** *(each scenario carries a globally unique stable ID `AC-###` — the traceability gate maps AC → test task)*:
 
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **AC-0XX**: **Given** [initial state], **When** [action], **Then** [expected outcome]
+2. **AC-0XX**: **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ---
 
@@ -46,9 +46,9 @@
 
 **Independent Test**: [Describe how this can be tested independently]
 
-**Acceptance Scenarios**:
+**Acceptance Scenarios** *(each scenario carries a globally unique stable ID `AC-###` — the traceability gate maps AC → test task)*:
 
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **AC-0XX**: **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ---
 
@@ -60,9 +60,9 @@
 
 **Independent Test**: [Describe how this can be tested independently]
 
-**Acceptance Scenarios**:
+**Acceptance Scenarios** *(each scenario carries a globally unique stable ID `AC-###` — the traceability gate maps AC → test task)*:
 
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **AC-0XX**: **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ---
 

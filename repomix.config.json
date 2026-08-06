@@ -1,0 +1,32 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "filePath": ".specify/memory/codebase-snapshot.xml",
+    "style": "xml",
+    "compress": true,
+    "topFilesLength": 20,
+    "git": {
+      "sortByChanges": true
+    }
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      ".specify/**",
+      "specs/**",
+      ".claude/**",
+      ".agents/**",
+      "audits/**",
+      "docs/**",
+      "**/*.lock",
+      "**/package-lock.json"
+    ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}

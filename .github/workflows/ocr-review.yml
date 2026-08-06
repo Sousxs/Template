@@ -1,0 +1,29 @@
+# AI code review via alibaba/open-code-review — inline PR comments, severity-filtered.
+# Secrets: OCR_LLM_URL, OCR_LLM_AUTH_TOKEN. Vars: OCR_LLM_MODEL, OCR_LLM_USE_ANTHROPIC.
+# NOTE: pin the action to a release tag once adopted (project is young; flags churn).
+# Cost controls: incremental posting, no re-run on every push, medium+ severity only.
+name: OCR Review
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: alibaba/open-code-review@main   # TODO: pin to a release tag
+        with:
+          llm_url: ${{ secrets.OCR_LLM_URL }}
+          llm_auth_token: ${{ secrets.OCR_LLM_AUTH_TOKEN }}
+          llm_model: ${{ vars.OCR_LLM_MODEL }}
+          llm_use_anthropic: ${{ vars.OCR_LLM_USE_ANTHROPIC }}
+          incremental: 'true'
+          sticky_summary: 'true'
+          route_severity_below: medium

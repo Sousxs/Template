@@ -1,119 +1,75 @@
-# AGENTS.md — Esteira de Implementação (Spec Kit)
+# AGENTS.md — Universal Agent Contract (Spec Kit pipeline)
 
-> Lido pelo Antigravity (e por outros agentes compatíveis com `AGENTS.md`) no início da sessão.
-> Define o papel do Antigravity dentro da esteira de Spec-Driven Development.
-> A **especificação** é responsabilidade do Claude Code (ver `CLAUDE.md`).
+> Read by ANY CLI agent working in this repo: Antigravity, Cursor, opencode, Claude Code and others.
+> Defines the full SDD pipeline contract: spec → implement → audit. Claude Code additionally reads `CLAUDE.md` (same pipeline + Claude-specific orchestration). Keep this file lean — it loads every session.
 
----
+## Reading order (before any work)
 
-## Papel e escopo
+0. `PROJECT-COMMANDS.md` — canonical build/test/lint commands (never rediscover them)
+1. `.specify/memory/handoff.md` — decisions, risks, open questions
+2. `.specify/memory/constitution.md` — non-negotiable principles + conventions
+3. `specs/NNN-feature/spec.md` → `plan.md` → `tasks.md` (+ `contracts/`, `data-model.md`)
 
-Você (Antigravity) é responsável **exclusivamente pela implementação**.
+## Pipeline (same for every agent)
 
-**Não faça:**
-- Modificar arquivos em `specs/` ou `.specify/memory/` — *exceto* marcar conclusão de tarefas em `tasks.md` (ver regra) e preencher a tabela "Questões levantadas na implementação" do `handoff.md`
-- Tomar decisões de arquitetura — siga o `plan.md`
-- Adicionar, remover, reordenar ou reescrever tarefas no `tasks.md`
-- Mudar a stack ou os contratos de API definidos no `plan.md`
-
-**Faça:**
-- Implementar exatamente o que está especificado
-- Seguir os princípios não-negociáveis da `constitution.md`
-- Marcar tarefas como concluídas conforme avança
-
----
-
-## Definition of Ready (antes de começar)
-
-Não inicie a implementação sem **todos** os itens abaixo. Se **qualquer** um falhar, **não comece**: registre o que falta na seção "Questões levantadas na implementação" do `handoff.md` e devolva para o Claude Code.
-
-- [ ] `.specify/memory/handoff.md` existe e está na versão mais recente
-- [ ] `.specify/memory/constitution.md` presente
-- [ ] `spec.md` sem marcadores `[NEEDS CLARIFICATION]`
-- [ ] `tasks.md` tem dependências explícitas e marcações `[P]`
-- [ ] `contracts/` preenchido para todos os endpoints citados
-- [ ] Existem tasks de teste cobrindo os critérios de aceitação
-
----
-
-## Pré-requisitos (ordem de leitura)
-
-1. `.specify/memory/handoff.md` — decisões, riscos e questões em aberto
-2. `.specify/memory/constitution.md` — princípios não-negociáveis (inclui convenções de branch/commit e segredos)
-3. `specs/NNN-feature/spec.md` — o que e porquê
-4. `specs/NNN-feature/plan.md` — arquitetura, stack, contratos
-5. `specs/NNN-feature/tasks.md` — ordem, dependências e `[P]`
-
-> Só comece depois de entender os **contratos de API** (`contracts/`) e o **modelo de dados** (`data-model.md`).
-
----
-
-## Execução
-
-```bash
-/speckit.implement   # executa as tarefas de tasks.md na ordem correta
+```
+constitution → specify → clarify* → checklist → plan → GATE A (adversarial plan review) → tasks
+→ analyze* → handoff GATE B → implement → GATE C (code review) → converge/audit   (* = loop; mandatory)
 ```
 
-- Siga a ordem e as **dependências** declaradas em `tasks.md`.
-- Execute em paralelo apenas tarefas marcadas com `[P]` que **não** compartilham arquivos ou estado.
-- Os contratos em `contracts/` são a **fonte da verdade** para as APIs.
-- **Commits seguem a convenção da constitution:** `feat: T013 cria endpoint de obrigações`, `fix: T021 corrige cálculo de prazo`. Um commit aponta para a task que cumpre.
+Spec phase produces artifacts only. Implementation starts **only** when the Definition of Ready below holds — even if the same agent does both phases. One feature per cycle, branch `NNN-feature-name`.
 
----
+## Definition of Ready (before implementing)
 
-## Regras
+ALL must hold; otherwise STOP and log the gap in the handoff.md Q-table:
 
-- **Ambiguidade:** consulte `spec.md` e `plan.md` antes de assumir qualquer coisa.
-- **Conflito entre `spec.md` e `plan.md`:** **pare e reporte.** Não decida sozinho.
-- **Contrato faltando ou inconsistente:** **pare e reporte** — não improvise a API.
-- **`tasks.md`:** a única alteração permitida é o status de conclusão (`[ ]` -> `[X]`), que faz parte natural do `/speckit.implement`. Nunca edite descrição, ordem, dependências ou escopo.
-- **Fora de escopo:** o que estiver marcado como "não implementar" no handoff/spec fica de fora.
+- [ ] `handoff.md` exists, current version, spec marked approved
+- [ ] `constitution.md` present
+- [ ] `spec.md` has zero `[NEEDS CLARIFICATION]`
+- [ ] `tasks.md` has explicit dependencies and `[P]` markers
+- [ ] `contracts/` complete for every endpoint referenced
+- [ ] Test tasks cover all acceptance criteria (AC → T cross-ref)
 
----
+## Execution rules
 
-## Segurança — gestão de segredos
+- Follow tasks.md order and dependencies. Parallelize only `[P]` tasks that share no files/state (isolated worktrees when available).
+- `contracts/` are the source of truth for APIs. Missing/inconsistent contract → STOP and report; never improvise an API.
+- spec×plan conflict → STOP and report. Ambiguity → re-read spec/plan before assuming.
+- **Minimal-code ladder** (ponytail, binding) before writing any code: needs to exist? → already in codebase? → stdlib? → platform feature? → installed dep? → one-liner? → only then a minimal implementation. Reuse beats rewrite; never add a dependency a one-liner replaces.
+- **TDD per task** (skill `tdd`): failing test → minimal code → green → refactor. No production code without a failing test first.
+- **Impact check per task group**: `code-review-graph update --brief` — the blast-radius panel lists affected callers/dependents/tests; verify them before moving on (structural queries via the code-review-graph MCP instead of file dumps).
+- **One commit per task**: `feat: T013 create obligations endpoint`. Maintenance: `fix(auth): expired token [BUG-007]`.
+- tasks.md: the only allowed edit is completion status `[ ]` → `[X]`. Never edit descriptions, order, deps or scope (converge appends tasks from the spec side).
+- On any failure (skill `systematic-debugging`): find root cause before fixing; no workaround patches. Stop the failing dependency line; independent `[P]` work may finish.
+- Before marking `[X]` or answering a handoff question (skill `verification-before-done`): fresh evidence — run the tests/build, don't claim from memory.
 
-Regra dura:
-- **Nunca** faça hardcode de segredos no código: credenciais, App IDs/Secrets, Tenant IDs, thumbprints, connection strings, tokens, chaves de API.
-- Use **variável de ambiente** ou **secret manager**; leia os nomes/origens definidos na spec/plan.
-- Nada de credencial em commit, log, exemplo ou comentário.
+## Failure / gap reporting
 
----
+Report in the handoff.md Q-table ("Questions raised during implementation"): task ID + file + error summary. If the failure reveals a SPEC gap (not an implementation bug), return to spec phase — never patch spec artifacts from the implement side.
 
-## Política de falha
+## Definition of Done
 
-Quando uma task quebra (teste, build ou execução):
+- [ ] All tasks `[X]` · tests green, including the AC-covering test tasks · build clean
+- [ ] constitution respected · contracts honored exactly · commits reference task IDs
+- [ ] GATE C review done (`/speckit-review`: OCR delegate pass + reviewer subagents); critical/high findings fixed or logged as Q-IDs
+- [ ] No edits to `specs/` or `.specify/memory/` beyond `[X]` marks and the Q-table
 
-1. **Pare imediatamente** naquela linha de dependência. Não avance para tarefas que dependem da que falhou.
-2. Tarefas `[P]` independentes que já estavam em curso podem concluir; nada novo que dependa da falha deve iniciar.
-3. **Reporte** na seção "Questões levantadas na implementação" do `handoff.md`: **task ID + arquivo + erro** (mensagem/stacktrace resumido).
-4. Não tente "consertar a spec" nem improvisar arquitetura para contornar — isso é volta para o Claude Code.
+Then run the drift audit: `/speckit-converge`, looping implement→converge until converged (command missing → `scripts/setup.ps1` upgrades Spec Kit).
 
----
+## Maintenance loops
 
-## Critérios de conclusão (Definition of Done)
+Audit loops live in `.claude/skills/loop-*/SKILL.md` (plain-markdown instructions any agent can follow); logs in `audits/`. Same protocol always: log the finding first → failing test → minimal fix → one commit per finding with its ID. Orchestrated parallel run: `.claude/skills/audit-orchestrator/SKILL.md` (discovery parallel, fixes serialized per module).
 
-- [ ] Todas as tarefas de `tasks.md` marcadas como concluídas (`[X]`)
-- [ ] **Testes passando** — incluindo as tasks de teste que cobrem os critérios de aceitação do `spec.md`
-- [ ] Build sem erros
-- [ ] Implementação em conformidade com a `constitution.md`
-- [ ] Contratos de API respeitados (sem desvio do que está em `contracts/`)
-- [ ] Commits seguindo a convenção `tipo: Txxx descrição`
-- [ ] Nenhuma alteração em `specs/` ou `.specify/memory/` além dos `[X]` em `tasks.md` e da tabela de questões no handoff
+## Secrets — hard rule
 
----
+Never hardcode credentials, tokens, keys, connection strings in code, commits, logs or examples. Use env vars / secret manager; the names come from spec/plan. This applies to every versioned artifact.
 
-## Quando parar e reportar
+<!-- SPECKIT START -->
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+<!-- SPECKIT END -->
 
-Pare a implementação e devolva para revisão se:
-- `spec.md` e `plan.md` se contradisserem
-- Uma tarefa exigir decisão de arquitetura não coberta pelo `plan.md`
-- Um teste revelar um **gap real na especificação** (não apenas um bug de implementação)
-- Um contrato de API estiver incompleto para implementar a tarefa
+<!-- code-review-graph MCP tools -->
+## MCP Tools: code-review-graph
 
-> Ao reportar, preencha a tabela "Questões levantadas na implementação" do `handoff.md` com o arquivo/seção em conflito e o que falta. O Claude Code corrige a spec, registra no histórico de revisões, responde a questão e devolve um handoff novo — fechando o ciclo entre os dois agentes.
-
----
-
-## Ao concluir
-Depois de bater o Definition of Done, sinalize para a **auditoria de drift pós-implementação**: o Claude Code roda `/speckit.analyze` de novo para confirmar que o código entregue não divergiu da spec/plan (ver `CLAUDE.md`). Você não modifica specs — apenas avisa que a implementação fechou.
+Graph-first: for structural questions use the code-review-graph MCP BEFORE Grep/Glob/Read. Key tools: `semantic_search_nodes_tool` (find symbols) · `query_graph_tool` (callers_of/callees_of/imports_of/tests_for) · `get_impact_radius_tool` (blast radius) · `detect_changes_tool` + `get_review_context_tool` (review) · `get_architecture_overview_tool`. Graph auto-updates via hooks. Detail on demand: skills `explore-codebase`, `review-changes`, `refactor-safely`, `debug-issue`. Fall back to Grep/Glob/Read only when the graph doesn't cover it.

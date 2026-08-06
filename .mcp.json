@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "repomix": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "repomix", "--mcp"]
+    },
+    "code-review-graph": {
+      "command": "code-review-graph",
+      "args": ["serve", "--repo", "."],
+      "env": { "PYTHONUTF8": "1" }
+    }
+  }
+}

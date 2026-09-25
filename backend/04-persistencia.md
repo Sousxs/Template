@@ -17,7 +17,7 @@ protected override void OnModelCreating(ModelBuilder builder)
     base.OnModelCreating(builder);
     builder.AddActivableQueryFilter();      // soft delete: obrigatório
     ConfigurarMestres(builder);
-    ConfigurarInventario(builder);
+    ConfigurarCatalogo(builder);
     ConfigurarPessoas(builder);
     builder.SeedCategorias();
     builder.SeedDominioValor();
@@ -37,7 +37,7 @@ Com mais de vinte entidades, quebre em `IEntityTypeConfiguration<T>` por entidad
 ## Migrations
 
 - Geradas pelo EF em `Database/Migrations`, assembly `FGR.<Sistema>.Database`.
-- Nome descreve a mudança: `AdicionaVidaUtilEmItem`, não `Update3`.
+- Nome descreve a mudança: `AdicionaCodigoEmProduto`, não `Update3`.
 - Aplicadas no boot por `RunMigrations()` em todo ambiente, exceto `Test`.
 - Nunca editar uma migration já aplicada em homolog; criar outra.
 - Objetos que o EF não modela (SEQUENCE, view, computed column, índice filtrado) entram por `migrationBuilder.Sql(...)` na migration, com o `Down` correspondente.
@@ -51,12 +51,12 @@ Métodos de extensão em `Database/Seeds/<Dominio>Seed.cs`, chamados no `OnModel
 `Repository<T>` cobre `ExistsAsync`, `FindAsync` com includes, `ListAsync` paginado, `ListMapperAsync<TDto>`, `InsertAsync`, `UpdateAsync`, `RemoveAsync`. O repositório concreto adiciona só consultas específicas:
 
 ```csharp
-internal class ItemRepository(AppDbContext db, ILogger<IRepository<Item>> log, IDomainValidation val, IMapper mapper)
-    : Repository<Item>(db, log, mapper, val), IItemRepository
+internal class ProdutoRepository(AppDbContext db, ILogger<IRepository<Produto>> log, IDomainValidation val, IMapper mapper)
+    : Repository<Produto>(db, log, mapper, val), IProdutoRepository
 {
     public Task<bool> ExistsCodigoAsync(string codigo, Guid? exceto = null) =>
         GetQuery().AsNoTracking()
-            .Where(i => i.CodigoPatrimonio == codigo && (exceto == null || i.Uuid != exceto))
+            .Where(i => i.Codigo == codigo && (exceto == null || i.Uuid != exceto))
             .AnyAsync();
 }
 ```
@@ -78,7 +78,7 @@ Leitura sem alteração: `AsNoTracking()`. Projeção para DTO: `ProjectTo<TDto>
 A persistência é uma implementação de `IAuditPersistenceService`. O padrão é `SqlAuditPersistenceService`, que grava a tabela `AuditLog` pelo próprio DbContext, na mesma transação. Um publisher assíncrono (fila de mensagens e banco de documentos) é a alternativa quando a auditoria for centralizada entre sistemas ou o volume pesar; a troca é essa classe.
 
 Regras:
-- Motivo de uma mudança (status, transferência, baixa) é propriedade da entidade, então aparece em `NewValues` sem coluna extra.
+- Motivo de uma mudança (status, preço, descontinuação) é propriedade da entidade, então aparece em `NewValues` sem coluna extra.
 - Mudança em entidade filha (1:1) é auditada sob o `Id` do pai quando a filha tem `[AuditRelations]` na navegação do pai.
 - `AuditLog` é append-only. Ninguém edita ou apaga.
 

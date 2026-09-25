@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsUUID, MaxLength } from 'class-validator';
 
-export class ItemRequest {
+export class ProdutoRequest {
     uuid?: string;
 
     @IsNotEmpty({ message: 'validation.required' })
@@ -9,13 +9,13 @@ export class ItemRequest {
 
     @IsOptional()
     @MaxLength(50, { message: 'validation.maxLength' })
-    codigoPatrimonio?: string;
+    codigo?: string;
 
     @IsUUID('4', { message: 'validation.required' })
     categoriaUuid: string;
 
     @IsOptional()
-    dataAquisicao?: string;
+    dataLancamento?: string;
 
     active: boolean = true;
 }

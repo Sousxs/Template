@@ -1,23 +1,23 @@
 using Base.Shared.Audit;
 using Base.Shared.Data;
-using FGR.Sistema.Entities.Inventario.Enum;
+using FGR.Sistema.Entities.Catalogo.Enum;
 using FGR.Sistema.Entities.Mestres;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FGR.Sistema.Entities.Inventario;
+namespace FGR.Sistema.Entities.Catalogo;
 
-[Table("Item")]
-public class Item : DefaultEntity, IAuditable
+[Table("Produto")]
+public class Produto : DefaultEntity, IAuditable
 {
     [Required, StringLength(200), Column("Nome")]
     public string Nome { get; set; } = string.Empty;
 
-    [StringLength(50), Column("CodigoPatrimonio"), Uppercase]
-    public string? CodigoPatrimonio { get; set; }
+    [StringLength(50), Column("Codigo"), Uppercase]
+    public string? Codigo { get; set; }
 
     [Required, Column("Status")]
-    public StatusItem Status { get; set; } = StatusItem.EmEstoque;
+    public StatusProduto Status { get; set; } = StatusProduto.Disponivel;
 
     [StringLength(500), Column("StatusMotivo")]
     public string? StatusMotivo { get; set; }
@@ -28,9 +28,7 @@ public class Item : DefaultEntity, IAuditable
     [ForeignKey(nameof(CategoriaId)), AuditIgnore]
     public Categoria Categoria { get; set; } = null!;
 
-    [Column("DataAquisicao")]
-    public DateOnly? DataAquisicao { get; set; }
+    [Column("DataLancamento")]
+    public DateOnly? DataLancamento { get; set; }
 
-    [Column("VidaUtilMeses")]
-    public int? VidaUtilMeses { get; set; }
 }

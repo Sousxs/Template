@@ -149,7 +149,7 @@ O que a marca fixa acima cobre é o esqueleto: cor primária, neutros, tipografi
 | **Navegação** | Menu lateral fixo, menu lateral em gaveta, ou só header com abas | Sistemas com até quatro áreas cabem em header com abas; acima disso, menu lateral |
 | **Densidade** | Tabelas compactas ou confortáveis, cards grandes ou pequenos | A mesma densidade em todo o sistema |
 | **Ilustração de vazio** | Ícone da família do sistema, no acento, ou um pictograma próprio em cinza | Mesmo estilo em todos os vazios do sistema |
-| **Tom das mensagens** | Direto ("Bem cadastrado") ou acolhedor ("Pronto, o bem já está no acervo") | Um tom, o sistema inteiro |
+| **Tom das mensagens** | Direto ("Produto cadastrado") ou acolhedor ("Pronto, o produto já está no catálogo") | Um tom, o sistema inteiro |
 | **Fundo de página** | O gradiente cinza padrão ou branco liso | Nunca fundo escuro nas telas logadas |
 | **Header** | Linha fina de acento sob o header, ou nenhuma | 2 px no máximo |
 
@@ -159,7 +159,7 @@ Cada sistema escolhe **um** acento. Dois sistemas não repetem acento. A paleta 
 
 | Acento | Valor | Suave | Reservado para |
 |---|---|---|---|
-| Petróleo | `#0F766E` | `#CCFBF1` | Patrimônio FGR |
+| Petróleo | `#0F766E` | `#CCFBF1` | livre |
 | Ardósia | `#334155` | `#E2E8F0` | livre |
 | Oliva | `#4D7C0F` | `#ECFCCB` | livre |
 | Âmbar queimado | `#B45309` | `#FEF3C7` | livre |
@@ -170,23 +170,20 @@ Quem escolher registra aqui, no pull request. O acento entra em `<sistema>-ident
 
 ```css
 :root {
-    --sys-name: 'Patrimônio FGR';
+    --sys-name: 'Nome do sistema';
     --sys-accent: #0f766e;
     --sys-accent-soft: #ccfbf1;
     --sys-accent-text: #134e4a;
 }
 ```
 
-### 3.3 Exemplo: Patrimônio FGR
+### 3.3 Dois sistemas hipotéticos, mesmo núcleo
 
-- Acento petróleo; ícone de caixa aberta ao lado do nome no header e no menu.
-- Home é dashboard: quatro KPIs em cards brancos com ícone 44 px em petróleo suave; abaixo, tabela de bens vencendo vida útil e gráfico de bens por unidade em petróleo.
-- Menu lateral fixo em desktop, gaveta em mobile, com as seções Patrimônio, Cadastros e Administração.
-- Tabelas confortáveis; a coluna de status usa as pills da seção 1.3; a categoria do bem aparece como chip cinza com o ícone da categoria.
-- Vazio: caixa aberta em petróleo, "Nenhum bem cadastrado nesta unidade", "Cadastre o primeiro ou importe a planilha".
-- Tom direto. Mensagens: "Bem cadastrado", "Baixa registrada", "Planilha importada: 141 bens, 7 linhas com erro".
+**Um catálogo de materiais.** Acento petróleo; ícone de caixa ao lado do nome no header e no menu. Home é dashboard: quatro KPIs em cards brancos com ícone 44 px em petróleo suave; abaixo, tabela de produtos esgotados e gráfico de produtos por categoria em petróleo. Menu lateral fixo em desktop, gaveta em mobile, com as seções Catálogo, Cadastros e Administração. Tabelas confortáveis; a coluna de status usa as pills da seção 1.3; a categoria aparece como chip cinza com o ícone da categoria. Vazio: caixa em petróleo, "Nenhum produto nesta categoria", "Cadastre o primeiro ou importe a planilha". Tom direto: "Produto cadastrado", "Preço atualizado", "Planilha importada: 141 produtos, 7 linhas com erro".
 
-Um segundo sistema, com o mesmo núcleo, escolhe ardósia, um ícone de engrenagem, home em catálogo de cards, header com abas e tom acolhedor. Os dois são FGR na primeira olhada e diferentes na segunda.
+**Uma agenda de vistorias.** Acento ardósia; ícone de calendário. Home é a agenda da semana, sem KPIs. Header com abas (Agenda, Vistorias, Configurações), sem menu lateral. Tabelas compactas, porque a tela é de operação rápida. Vazio: calendário em ardósia, "Semana livre", "Agende a primeira vistoria". Tom acolhedor: "Pronto, a vistoria está agendada", "Tudo em dia por aqui".
+
+Os dois são FGR na primeira olhada e diferentes na segunda: mesma logo, mesmo vinho nos botões, mesmos neutros, mesmas pills; acento, símbolo, home, navegação, densidade e tom próprios.
 
 ### 3.4 O que não pode virar identidade
 

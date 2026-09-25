@@ -6,7 +6,7 @@ Dois cenários. Escolha um por projeto e registre no README.
 
 | Cenário | Quando | O que a API faz |
 |---|---|---|
-| Provedor externo | O login já existe fora (Painel de Ferramentas, AD) | `AddJwtBearer` validando issuer, audience e assinatura do provedor. Sem senha, sem refresh, sem controller de OAuth |
+| Provedor externo | O login já existe fora (provedor corporativo, AD) | `AddJwtBearer` validando issuer, audience e assinatura do provedor. Sem senha, sem refresh, sem controller de OAuth |
 | Emissão própria | Usuários e senhas vivem no sistema | `OAuthController` com `POST /OAuth/token` e `POST /OAuth/refresh-token`, JWT assinado com chave RSA em `OAuthConfig`, `BasicAuthenticationHandler` para integrações máquina a máquina |
 
 Em ambos: `[Authorize]` em todo controller; rotas públicas listadas explicitamente com `[AllowAnonymous]`.
@@ -17,12 +17,12 @@ Não há roles nem policies do ASP.NET. O controle é por chave `Dominio.Acao`:
 
 ```csharp
 [HttpPost]
-[Permission(Permissions.Item.Criar)]
-public async Task<IActionResult> Criar(ItemRequest request) => ...
+[Permission(Permissions.Produto.Criar)]
+public async Task<IActionResult> Criar(ProdutoRequest request) => ...
 ```
 
 - `PermissionAttribute` é um `IAsyncAuthorizationFilter`: carrega as chaves do usuário via `IPermissionLoader` e devolve 403 se nenhuma bate.
-- Chaves ficam em `Api/Common/Permissions.cs`, classes estáticas aninhadas: `Permissions.Item.Criar = "Item.Criar"`. Nunca string literal na action.
+- Chaves ficam em `Api/Common/Permissions.cs`, classes estáticas aninhadas: `Permissions.Produto.Criar = "Produto.Criar"`. Nunca string literal na action.
 - A mesma lista de chaves existe no app em `PermissionEnum`. Mudou de um lado, muda do outro.
 - `DISABLE_PERMISSIONS=1` desliga a checagem em ambiente local. Nunca em homolog ou produção.
 
@@ -37,7 +37,7 @@ public async Task<IActionResult> Criar(ItemRequest request) => ...
 
 ## Filtros globais por perfil
 
-Quando um perfil só pode ver parte dos dados (uma área, uma unidade, um módulo), o corte é um query filter do EF, não um `Where` em cada consulta. Modelo: `ActivableQueryFilter`. Crie `<Criterio>QueryFilter` em `Base.Repository/Database/Entity`, aplicado a toda entidade que implementa a interface marcadora (`IHaveAreaResponsavel`), lendo o perfil de `IHttpContextAccessor`.
+Quando um perfil só pode ver parte dos dados (uma filial, uma empresa, um módulo), o corte é um query filter do EF, não um `Where` em cada consulta. Modelo: `ActivableQueryFilter`. Crie `<Criterio>QueryFilter` em `Base.Repository/Database/Entity`, aplicado a toda entidade que implementa a interface marcadora (`IHaveFilial`), lendo o perfil de `IHttpContextAccessor`.
 
 ## Regras fixas
 

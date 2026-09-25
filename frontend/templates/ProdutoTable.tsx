@@ -10,17 +10,17 @@ import { ButtonTableEditar } from '@components/shared/button/ButtonTableEditar';
 import { ButtonTableVisualizar } from '@components/shared/button/ButtonTableVisualizar';
 import TableSkeleton from '@components/shared/table/TableSkeleton';
 import { PermissionEnum } from '@models/permission/PermissionEnum';
-import { ItemResponse } from '@models/item/ItemResponse';
-import { useFilterItemQuery } from '@hooks/item/UseFilterItemQuery';
-import { useItemListContext } from '@app/context/item/ItemListContext';
+import { ProdutoResponse } from '@models/produto/ProdutoResponse';
+import { useFilterProdutoQuery } from '@hooks/produto/UseFilterProdutoQuery';
+import { useProdutoListContext } from '@app/context/produto/ProdutoListContext';
 
-export const ItemTable = () => {
+export const ProdutoTable = () => {
     const navigate = useNavigate();
-    const { tLabel, tEnum } = useInternationalization('item');
-    const { filters } = useItemListContext();
+    const { tLabel, tEnum } = useInternationalization('produto');
+    const { filters } = useProdutoListContext();
     const { dataTableState, handleChangePage, handleSort, searchParams, pagination, setPagination } =
-        usePagination<ItemResponse>({ initialFilters: filters, rows: rowsPerPage, sortField: 'nome', sortOrder: 1 });
-    const { isFetching } = useFilterItemQuery(searchParams, setPagination);
+        usePagination<ProdutoResponse>({ initialFilters: filters, rows: rowsPerPage, sortField: 'nome', sortOrder: 1 });
+    const { isFetching } = useFilterProdutoQuery(searchParams, setPagination);
 
     if (isFetching && !pagination) return <TableSkeleton />;
 
@@ -40,16 +40,16 @@ export const ItemTable = () => {
             loading={isFetching}
             emptyMessage={tLabel('empty')}
         >
-            <Column field="codigoPatrimonio" header={tLabel('codigoPatrimonio')} sortable />
+            <Column field="codigo" header={tLabel('codigo')} sortable />
             <Column field="nome" header={tLabel('nome')} sortable />
             <Column field="categoriaNome" header={tLabel('categoria')} />
-            <Column field="status" header={tLabel('status')} body={(r: ItemResponse) => <span className={`pill pill-${statusTone(r.status)}`}>{tEnum('status', r.status)}</span>} />
+            <Column field="status" header={tLabel('status')} body={(r: ProdutoResponse) => <span className={`pill pill-${statusTone(r.status)}`}>{tEnum('status', r.status)}</span>} />
             <Column
-                body={(r: ItemResponse) => (
+                body={(r: ProdutoResponse) => (
                     <ButtonTableContainer>
-                        <ButtonTableVisualizar onClick={() => navigate(`/item/view/${r.uuid}`)} />
-                        <HasPermission hasAll={[PermissionEnum.ItemEditar]}>
-                            <ButtonTableEditar onClick={() => navigate(`/item/edit/${r.uuid}`)} />
+                        <ButtonTableVisualizar onClick={() => navigate(`/produto/view/${r.uuid}`)} />
+                        <HasPermission hasAll={[PermissionEnum.ProdutoEditar]}>
+                            <ButtonTableEditar onClick={() => navigate(`/produto/edit/${r.uuid}`)} />
                         </HasPermission>
                     </ButtonTableContainer>
                 )}
@@ -59,4 +59,4 @@ export const ItemTable = () => {
 };
 
 const statusTone = (status: string) =>
-    ({ EM_USO: 'success', EM_ESTOQUE: 'info', EM_MANUTENCAO: 'warning', INATIVO: 'neutral', BAIXADO: 'danger' })[status] ?? 'neutral';
+    ({ EM_HOMOLOGACAO: 'success', DISPONIVEL: 'info', ESGOTADO: 'warning', SUSPENSO: 'neutral', DESCONTINUADO: 'danger' })[status] ?? 'neutral';

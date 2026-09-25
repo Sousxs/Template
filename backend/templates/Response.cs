@@ -1,13 +1,13 @@
 using Base.Export.Core;
 
-namespace FGR.Sistema.Service.Models.Inventario;
+namespace FGR.Sistema.Service.Models.Catalogo;
 
-public class ItemResponse
+public class ProdutoResponse
 {
     public Guid Uuid { get; set; }
 
     [ShowInReport("Código")]
-    public string? CodigoPatrimonio { get; set; }
+    public string? Codigo { get; set; }
 
     [ShowInReport("Nome")]
     public string Nome { get; set; } = string.Empty;
@@ -18,6 +18,6 @@ public class ItemResponse
     [ShowInReport("Status")]
     public string Status { get; set; } = string.Empty;
 
-    public DateOnly? DataAquisicao { get; set; }
+    public DateOnly? DataLancamento { get; set; }
     public bool Active { get; set; }
 }

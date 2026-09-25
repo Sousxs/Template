@@ -6,15 +6,15 @@ import { ButtonSalvar } from '@components/shared/button/ButtonSalvar';
 import { ButtonCancelar } from '@components/shared/button/ButtonCancelar';
 import { ClassValidatorResolver } from '@core/forms/ClassValidatorResolver';
 import { useInternationalization } from '@hooks/UseInternationalization';
-import { ItemRequest } from '@models/item/ItemRequest';
-import { useItemMutation } from '@hooks/item/UseItemMutation';
+import { ProdutoRequest } from '@models/produto/ProdutoRequest';
+import { useProdutoMutation } from '@hooks/produto/UseProdutoMutation';
 
-type Props = { defaultValues?: Partial<ItemRequest>; categorias: { value: string; label: string }[]; onSaved: () => void; onCancel: () => void };
+type Props = { defaultValues?: Partial<ProdutoRequest>; categorias: { value: string; label: string }[]; onSaved: () => void; onCancel: () => void };
 
-export const ItemForm = ({ defaultValues, categorias, onSaved, onCancel }: Props) => {
-    const { tLabel } = useInternationalization('item');
-    const form = useForm<ItemRequest>({ resolver: ClassValidatorResolver(ItemRequest), defaultValues: { active: true, ...defaultValues } });
-    const mutation = useItemMutation(form, onSaved);
+export const ProdutoForm = ({ defaultValues, categorias, onSaved, onCancel }: Props) => {
+    const { tLabel } = useInternationalization('produto');
+    const form = useForm<ProdutoRequest>({ resolver: ClassValidatorResolver(ProdutoRequest), defaultValues: { active: true, ...defaultValues } });
+    const mutation = useProdutoMutation(form, onSaved);
 
     return (
         <Form {...form}>
@@ -31,9 +31,9 @@ export const ItemForm = ({ defaultValues, categorias, onSaved, onCancel }: Props
                         <FormControl><Dropdown options={categorias} value={field.value} onChange={(e) => field.onChange(e.value)} className="w-full" /></FormControl>
                     </FormItem>
                 )} />
-                <FormField name="codigoPatrimonio" render={({ field }) => (
+                <FormField name="codigo" render={({ field }) => (
                     <FormItem className="col-12 md:col-3">
-                        <FormLabel>{tLabel('codigoPatrimonio')}</FormLabel>
+                        <FormLabel>{tLabel('codigo')}</FormLabel>
                         <FormControl><InputText {...field} className="w-full" /></FormControl>
                     </FormItem>
                 )} />

@@ -1,7 +1,7 @@
 /* Identidade do sistema. Um arquivo por sistema, importado depois de fgr-theme.css.
    Só o que a seção 3 de 09-identidade-visual.md libera: acento, nome, detalhes de superfície. */
 :root {
-    --sys-name: 'Patrimônio FGR';
+    --sys-name: 'Nome do sistema';
     --sys-accent: #0f766e;
     --sys-accent-soft: #ccfbf1;
     --sys-accent-text: #134e4a;

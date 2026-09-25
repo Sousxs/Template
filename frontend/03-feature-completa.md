@@ -1,19 +1,19 @@
-# Uma feature completa: `item`
+# Uma feature completa: `produto`
 
 Ordem de criação. Templates em [templates/](templates/).
 
 | # | Arquivo | Template |
 |---|---|---|
-| 1 | `models/item/ItemRequest.ts`, `ItemResponse.ts`, `ItemFilterRequest.ts` | [ItemRequest.ts](templates/ItemRequest.ts), [ItemResponse.ts](templates/ItemResponse.ts) |
-| 2 | `models/permission/PermissionEnum.ts` → chaves `Item*` | [PermissionEnum.ts](templates/PermissionEnum.ts) |
-| 3 | `services/item/ItemService.ts` | [ItemService.ts](templates/ItemService.ts) |
-| 4 | `i18n/pt/translation.json` → seção `item` | [translation.item.json](templates/translation.item.json) |
-| 5 | `app/hooks/item/UseFilterItemQuery.ts`, `UseItemMutation.ts` | [UseFilterItemQuery.ts](templates/UseFilterItemQuery.ts), [UseItemMutation.ts](templates/UseItemMutation.ts) |
-| 6 | `app/components/item/ItemFilter.tsx`, `ItemTable.tsx`, `ItemForm.tsx` | [ItemFilter.tsx](templates/ItemFilter.tsx), [ItemTable.tsx](templates/ItemTable.tsx), [ItemForm.tsx](templates/ItemForm.tsx) |
-| 7 | `app/pages/item/ItemListarPage.tsx`, `ItemFormPage.tsx` | [ItemListarPage.tsx](templates/ItemListarPage.tsx), [ItemFormPage.tsx](templates/ItemFormPage.tsx) |
-| 8 | `app/pages/item/config/ItemMenu.ts`, `ItemBreadcrumb.ts`, `ItemRouter.tsx` | [ItemMenu.ts](templates/ItemMenu.ts), [ItemBreadcrumb.ts](templates/ItemBreadcrumb.ts), [ItemRouter.tsx](templates/ItemRouter.tsx) |
-| 9 | `app/AppRouter.tsx` → adiciona `itemRoutes`; `app/AppMenu.ts` → adiciona `ItemMenu.listar` | |
-| 10 | `e2e/item.spec.ts` e uma linha em `e2e/_visual.spec.ts` | [item.spec.ts](templates/item.spec.ts) |
+| 1 | `models/produto/ProdutoRequest.ts`, `ProdutoResponse.ts`, `ProdutoFilterRequest.ts` | [ProdutoRequest.ts](templates/ProdutoRequest.ts), [ProdutoResponse.ts](templates/ProdutoResponse.ts) |
+| 2 | `models/permission/PermissionEnum.ts` → chaves `Produto*` | [PermissionEnum.ts](templates/PermissionEnum.ts) |
+| 3 | `services/produto/ProdutoService.ts` | [ProdutoService.ts](templates/ProdutoService.ts) |
+| 4 | `i18n/pt/translation.json` → seção `produto` | [translation.produto.json](templates/translation.produto.json) |
+| 5 | `app/hooks/produto/UseFilterProdutoQuery.ts`, `UseProdutoMutation.ts` | [UseFilterProdutoQuery.ts](templates/UseFilterProdutoQuery.ts), [UseProdutoMutation.ts](templates/UseProdutoMutation.ts) |
+| 6 | `app/components/produto/ProdutoFilter.tsx`, `ProdutoTable.tsx`, `ProdutoForm.tsx` | [ProdutoFilter.tsx](templates/ProdutoFilter.tsx), [ProdutoTable.tsx](templates/ProdutoTable.tsx), [ProdutoForm.tsx](templates/ProdutoForm.tsx) |
+| 7 | `app/pages/produto/ProdutoListarPage.tsx`, `ProdutoFormPage.tsx` | [ProdutoListarPage.tsx](templates/ProdutoListarPage.tsx), [ProdutoFormPage.tsx](templates/ProdutoFormPage.tsx) |
+| 8 | `app/pages/produto/config/ProdutoMenu.ts`, `ProdutoBreadcrumb.ts`, `ProdutoRouter.tsx` | [ProdutoMenu.ts](templates/ProdutoMenu.ts), [ProdutoBreadcrumb.ts](templates/ProdutoBreadcrumb.ts), [ProdutoRouter.tsx](templates/ProdutoRouter.tsx) |
+| 9 | `app/AppRouter.tsx` → adiciona `itemRoutes`; `app/AppMenu.ts` → adiciona `ProdutoMenu.listar` | |
+| 10 | `e2e/produto.spec.ts` e uma linha em `e2e/_visual.spec.ts` | [produto.spec.ts](templates/produto.spec.ts) |
 
 Só os passos 9 e 10 tocam arquivos fora da pasta da feature.
 
@@ -21,16 +21,16 @@ Só os passos 9 e 10 tocam arquivos fora da pasta da feature.
 
 | Rota | Página |
 |---|---|
-| `/item` | `ItemListarPage` |
-| `/item/new` | `ItemFormPage` |
-| `/item/edit/:uuid` | `ItemFormPage` |
-| `/item/view/:uuid` | `ItemVisualizarPage` |
+| `/produto` | `ProdutoListarPage` |
+| `/produto/new` | `ProdutoFormPage` |
+| `/produto/edit/:uuid` | `ProdutoFormPage` |
+| `/produto/view/:uuid` | `ProdutoVisualizarPage` |
 
 ## Trio de listagem
 
-- `ItemListarPage`: `PageCard` com título, breadcrumb e botão "Novo" sob `HasPermission`; dentro, `ItemFilter` e `ItemTable` compartilhando um contexto de lista (`ItemListContext`) ou o `FilterStore` da feature.
-- `ItemFilter`: formulário de filtro com `useFilterForm`; ao aplicar, atualiza os `searchParams` de `usePagination`.
-- `ItemTable`: `DataTable` do PrimeReact em modo `lazy` com `usePagination`; `useFilterItemQuery` busca; colunas de ação com `ButtonTableEditar`, `ButtonTableVisualizar`, `InputSwitch` para ativar/inativar sob `HasPermission`.
+- `ProdutoListarPage`: `PageCard` com título, breadcrumb e botão "Novo" sob `HasPermission`; dentro, `ProdutoFilter` e `ProdutoTable` compartilhando um contexto de lista (`ProdutoListContext`) ou o `FilterStore` da feature.
+- `ProdutoFilter`: formulário de filtro com `useFilterForm`; ao aplicar, atualiza os `searchParams` de `usePagination`.
+- `ProdutoTable`: `DataTable` do PrimeReact em modo `lazy` com `usePagination`; `useFilterProdutoQuery` busca; colunas de ação com `ButtonTableEditar`, `ButtonTableVisualizar`, `InputSwitch` para ativar/inativar sob `HasPermission`.
 
 ## Mestres simples
 

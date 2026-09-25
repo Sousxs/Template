@@ -3,8 +3,8 @@
 ## Entidades
 
 ```csharp
-[Table("Item")]
-public class Item : DefaultEntity, IAuditable
+[Table("Produto")]
+public class Produto : DefaultEntity, IAuditable
 {
     [Required, StringLength(200), Column("Nome")]
     public string Nome { get; set; } = string.Empty;
@@ -23,18 +23,18 @@ public class Item : DefaultEntity, IAuditable
 - Navegações levam `[AuditIgnore]`; coleções que importam para a auditoria levam `[AuditRelations(entityProperties: nameof(Filha.Id))]`.
 - Strings que devem ser guardadas em maiúsculas (placa, código) levam `[Uppercase]`; o `UnityOfWork` normaliza antes de salvar.
 - Enums ficam em `Entities/<Dominio>/Enum/` e são gravados como string.
-- Sem `CreatedAt`/`UpdatedAt` na entidade base. Quem precisa de data de negócio declara a própria coluna (`DataAquisicao`, `DataBaixa`). O histórico técnico é a auditoria.
+- Sem `CreatedAt`/`UpdatedAt` na entidade base. Quem precisa de data de negócio declara a própria coluna (`DataLancamento`, `DataDescontinuacao`). O histórico técnico é a auditoria.
 
 ## Rotas
 
 | Regra | Exemplo |
 |---|---|
-| `[Route("[controller]")]`, sem prefixo `/api`, sem versão | `GET /Item`, `POST /Unidade` |
-| Id público é o `Uuid` | `GET /Item/{uuid}` |
-| Sub-recurso com rota literal | `GET /Item/{itemUuid:guid}/linha-do-tempo` |
-| Sufixo de ação em kebab-case | `PATCH /Item/change-status/{uuid}`, `GET /Unidade/select-items`, `POST /Item/importar` |
+| `[Route("[controller]")]`, sem prefixo `/api`, sem versão | `GET /Produto`, `POST /Categoria` |
+| Id público é o `Uuid` | `GET /Produto/{uuid}` |
+| Sub-recurso com rota literal | `GET /Produto/{itemUuid:guid}/linha-do-tempo` |
+| Sufixo de ação em kebab-case | `PATCH /Produto/change-status/{uuid}`, `GET /Categoria/select-items`, `POST /Produto/importar` |
 | Atributos de classe | `[ApiController] [Route("[controller]")] [Produces("application/json")] [Authorize]` |
-| Atributos de action | `[ProducesResponseType(200, Type = typeof(ItemResponse))]` e `[ProducesResponseType(400, Type = typeof(IDomainValidation))]` |
+| Atributos de action | `[ProducesResponseType(200, Type = typeof(ProdutoResponse))]` e `[ProducesResponseType(400, Type = typeof(IDomainValidation))]` |
 
 ## Registro de dependências
 
@@ -42,17 +42,17 @@ Interface marcada, implementação descoberta por reflexão. Nunca `AddScoped` m
 
 ```csharp
 [Service]                      // scoped por padrão; [Service(LifeCycleEnum.Singleton)] se precisar
-public interface IItemService : IBaseService<Item> { ... }
+public interface IProdutoService : IBaseService<Produto> { ... }
 
 [Repository]
-public interface IItemRepository : IRepository<Item> { ... }
+public interface IProdutoRepository : IRepository<Produto> { ... }
 ```
 
 Uma interface, uma implementação. Duas implementações ou nenhuma quebram o boot com `AutoRegisterServiceException`, de propósito.
 
 ## Listagem, filtro e ordenação
 
-- Query string: `?page=0&size=25&sort=nome,asc&nome=cad&unidadeUuid=...`. `page` é 0-based na API.
+- Query string: `?page=0&size=25&sort=nome,asc&nome=cim&categoriaUuid=...`. `page` é 0-based na API.
 - `DataTableModelBinder` transforma em `DataTableRequest<TFiltro>`; qualquer parâmetro que não seja `page`, `size` ou `sort` vira um filtro `{Name, Value}`.
 - `Repository.ListAsync` traduz com Dynamic LINQ: `Guid` igualdade, `bool` igualdade (`false` inclui `null`), `string` contains, demais igualdade.
 - Propriedades filtráveis do DTO de filtro levam `[Searcheable]`; serve para o Swagger documentar.
@@ -88,11 +88,11 @@ AutoMapper, um `<Dominio>Profile` em `Service.Models/Mappers`. Consultas de list
 
 | Coisa | Padrão |
 |---|---|
-| Entidade | `Item`, `ItemVeiculo` |
-| Interface e classe | `IItemRepository` / `ItemRepository`, `IItemService` / `ItemService` |
-| DTO | `ItemRequest`, `ItemResponse`, `ItemFilterRequest`, `ItemLinhaDoTempoResponse` |
-| Validator | `ItemValidator` |
-| Profile | `InventarioProfile` (por domínio) |
-| Controller | `ItemController` |
-| Pasta | Mesmo nome de domínio em todas as camadas: `Inventario/` |
-| Permissão | `"Item.Criar"`, constante em `Common/Permissions.cs` |
+| Entidade | `Produto`, `ProdutoVariacao` |
+| Interface e classe | `IProdutoRepository` / `ProdutoRepository`, `IProdutoService` / `ProdutoService` |
+| DTO | `ProdutoRequest`, `ProdutoResponse`, `ProdutoFilterRequest`, `ProdutoResumoResponse` |
+| Validator | `ProdutoValidator` |
+| Profile | `CatalogoProfile` (por domínio) |
+| Controller | `ProdutoController` |
+| Pasta | Mesmo nome de domínio em todas as camadas: `Catalogo/` |
+| Permissão | `"Produto.Criar"`, constante em `Common/Permissions.cs` |

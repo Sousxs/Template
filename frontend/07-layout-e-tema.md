@@ -9,7 +9,7 @@
 
 ## Menu e breadcrumb
 
-Cada feature declara seus itens em `pages/<feature>/config/<X>Menu.ts` como `AppMenuItem` (`label`, `icon`, `to`, `permissions`, `items`). `app/AppMenu.ts` monta a árvore com grupos (`Cadastros`, `Operação`, `Administração`). O mesmo `AppMenuItem` vira breadcrumb em `<X>Breadcrumb.ts`. Um item de menu, uma fonte.
+Cada feature declara seus itens de menu em `pages/<feature>/config/<X>Menu.ts` como `AppMenuItem` (`label`, `icon`, `to`, `permissions`, `items`). `app/AppMenu.ts` monta a árvore com grupos (`Cadastros`, `Operação`, `Administração`). O mesmo `AppMenuItem` vira breadcrumb em `<X>Breadcrumb.ts`. Um item de menu, uma fonte.
 
 ## Página
 
@@ -21,10 +21,10 @@ Tokens em CSS custom properties, um arquivo de entrada importado em `main.tsx` (
 
 ## i18n
 
-- `i18n/pt/translation.json` organizado por feature e por tipo: `item.titles.list`, `item.labels.nome`, `item.messages.saved`, `shared.actions.save`, `shared.errors.404`.
-- `useInternationalization('item')` devolve `tTitle`, `tLabel`, `tMessage`, `tAction`, `tValidation`, `tEnum`, `tCustomPath`.
+- `i18n/pt/translation.json` organizado por feature e por tipo: `produto.titles.list`, `produto.labels.nome`, `produto.messages.saved`, `shared.actions.save`, `shared.errors.404`.
+- `useInternationalization('produto')` devolve `tTitle`, `tLabel`, `tMessage`, `tAction`, `tValidation`, `tEnum`, `tCustomPath`.
 - `pt/primereact.json` traduz o PrimeReact; `pt/class_validator.json` as mensagens de validação.
-- Enum da API tem texto em `item.enums.status.EM_USO`.
+- Enum da API tem texto em `produto.enums.status.EM_HOMOLOGACAO`.
 
 ## Responsivo
 

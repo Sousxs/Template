@@ -1,18 +1,18 @@
 using AutoMapper;
-using FGR.Sistema.Entities.Inventario;
-using FGR.Sistema.Service.Models.Inventario;
+using FGR.Sistema.Entities.Catalogo;
+using FGR.Sistema.Service.Models.Catalogo;
 
 namespace FGR.Sistema.Service.Models.Mappers;
 
-public class InventarioProfile : Profile
+public class CatalogoProfile : Profile
 {
-    public InventarioProfile()
+    public CatalogoProfile()
     {
-        CreateMap<Item, ItemResponse>()
+        CreateMap<Produto, ProdutoResponse>()
             .ForMember(d => d.CategoriaNome, o => o.MapFrom(s => s.Categoria.Nome))
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()));
 
-        CreateMap<ItemRequest, Item>()
+        CreateMap<ProdutoRequest, Produto>()
             .ForMember(d => d.Id, o => o.Ignore())
             .ForMember(d => d.Uuid, o => o.Ignore())
             .ForMember(d => d.CategoriaId, o => o.Ignore())

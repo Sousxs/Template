@@ -27,7 +27,7 @@ Quando uma simplificação tem limite conhecido, o código recebe um comentário
 // ponytail: <limite>, <o que fazer quando chegar>
 ```
 
-Exemplo: `// ponytail: lock global no estoque, trocar por lock por item se passar de 50 movimentações/min`. O comando de auditoria de dívidas varre esses comentários e lista todos.
+Exemplo: `// ponytail: lock global no estoque, trocar por lock por produto se passar de 50 movimentações/min`. O comando de auditoria de dívidas varre esses comentários e lista todos.
 
 ## 4. Mesma forma em todo projeto
 
@@ -35,4 +35,4 @@ Pastas, nomes, camadas e contratos são os deste handbook. Um projeto que precis
 
 ## 5. Nome de negócio em português, nome de infraestrutura em inglês
 
-`Item`, `Unidade`, `CodigoPatrimonio`, `ItemService`, `ItemRequest`. Sufixos e tipos de infraestrutura ficam em inglês: `Repository`, `Request`, `Response`, `Controller`, `Profile`, `Store`, `Page`.
+`Produto`, `Categoria`, `CodigoBarras`, `ProdutoService`, `ProdutoRequest`. Sufixos e tipos de infraestrutura ficam em inglês: `Repository`, `Request`, `Response`, `Controller`, `Profile`, `Store`, `Page`.

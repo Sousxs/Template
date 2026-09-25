@@ -1,27 +1,27 @@
 using Base.Shared.DomainValidation;
-using FGR.Sistema.Repository.Interface.Inventario;
+using FGR.Sistema.Repository.Interface.Catalogo;
 using FGR.Sistema.Repository.Interface.Mestres;
-using FGR.Sistema.Service.Interface.Inventario;
-using FGR.Sistema.Service.Models.Inventario;
+using FGR.Sistema.Service.Interface.Catalogo;
+using FGR.Sistema.Service.Models.Catalogo;
 
-namespace FGR.Sistema.Service.Inventario;
+namespace FGR.Sistema.Service.Catalogo;
 
-internal class ItemValidator(
-    IItemRepository itens,
+internal class ProdutoValidator(
+    IProdutoRepository produtos,
     ICategoriaRepository categorias,
-    IDomainValidation validation) : IItemValidator
+    IDomainValidation validation) : IProdutoValidator
 {
-    public async Task ValidarCriar(ItemRequest request) => await ValidarComum(request, null);
+    public async Task ValidarCriar(ProdutoRequest request) => await ValidarComum(request, null);
 
-    public async Task ValidarEditar(ItemRequest request, Guid uuid)
+    public async Task ValidarEditar(ProdutoRequest request, Guid uuid)
     {
-        if (!await itens.ExistsAsync(uuid))
-            validation.AddDomainError("Item não encontrado.");
+        if (!await produtos.ExistsAsync(uuid))
+            validation.AddDomainError("Produto não encontrado.");
 
         await ValidarComum(request, uuid);
     }
 
-    private async Task ValidarComum(ItemRequest request, Guid? uuid)
+    private async Task ValidarComum(ProdutoRequest request, Guid? uuid)
     {
         if (string.IsNullOrWhiteSpace(request.Nome))
             validation.AddFieldError(nameof(request.Nome), "Informe o nome.");
@@ -29,8 +29,8 @@ internal class ItemValidator(
         if (!await categorias.ExistsAsync(request.CategoriaUuid))
             validation.AddFieldError(nameof(request.CategoriaUuid), "Categoria não encontrada.");
 
-        if (!string.IsNullOrWhiteSpace(request.CodigoPatrimonio)
-            && await itens.ExistsCodigoAsync(request.CodigoPatrimonio, uuid))
-            validation.AddFieldError(nameof(request.CodigoPatrimonio), "Código já cadastrado.");
+        if (!string.IsNullOrWhiteSpace(request.Codigo)
+            && await produtos.ExistsCodigoAsync(request.Codigo, uuid))
+            validation.AddFieldError(nameof(request.Codigo), "Código já cadastrado.");
     }
 }

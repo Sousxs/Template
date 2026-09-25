@@ -4,22 +4,22 @@ import { useService } from '@hooks/UseService';
 import { useToastRef } from '@hooks/UseToastRef';
 import { useInternationalization } from '@hooks/UseInternationalization';
 import { useApiError } from '@core/hooks/UseApiError';
-import { ItemService } from '@services/item/ItemService';
-import { ItemRequest } from '@models/item/ItemRequest';
-import { filterItemQueryKey } from './UseFilterItemQuery';
+import { ProdutoService } from '@services/produto/ProdutoService';
+import { ProdutoRequest } from '@models/produto/ProdutoRequest';
+import { filterProdutoQueryKey } from './UseFilterProdutoQuery';
 
-export const useItemMutation = (form: UseFormReturn<ItemRequest>, onSaved: () => void) => {
-    const service = useService(ItemService);
+export const useProdutoMutation = (form: UseFormReturn<ProdutoRequest>, onSaved: () => void) => {
+    const service = useService(ProdutoService);
     const queryClient = useQueryClient();
     const toast = useToastRef();
     const { formHandleError } = useApiError();
-    const { tMessage } = useInternationalization('item');
+    const { tMessage } = useInternationalization('produto');
 
     return useMutation({
-        mutationFn: (request: ItemRequest) => service.persist(request),
+        mutationFn: (request: ProdutoRequest) => service.persist(request),
         onSuccess: async () => {
             toast?.current?.show({ severity: 'success', summary: tMessage('saved') });
-            await queryClient.invalidateQueries({ queryKey: [filterItemQueryKey] });
+            await queryClient.invalidateQueries({ queryKey: [filterProdutoQueryKey] });
             onSaved();
         },
         onError: (error) => formHandleError(form, error)

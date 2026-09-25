@@ -1,7 +1,7 @@
 # Camadas e fluxo de uma requisição
 
 ```
-Controller  [ApiController] [Route("[controller]")] [Authorize] [Permission("Item.Criar")]
+Controller  [ApiController] [Route("[controller]")] [Authorize] [Permission("Produto.Criar")]
    └─ ExecuteWithTransactionAsync(async () =>
         {
             var response = await _service.CriarAsync(request);
@@ -47,7 +47,7 @@ O service nunca chama `SaveChanges`. Quem decide a fronteira da transação é o
 
 - `IBaseService<T>`: `ExistsAsync`, `FindAsync`, `FindAsNoTrackingAsync`, `ListAsync`, `ListMapperAsync<TDto>`, `ExportAsync`, `ChangeActiveStatus`.
 - `BaseServiceCrud<T>`: adiciona `CreateAsync`, `EditAsync`, `RemoveAsync`.
-- Service concreto: `internal class ItemService(...) : BaseServiceCrud<Item>, IItemService`. `internal` força o consumo pela interface.
+- Service concreto: `internal class ProdutoService(...) : BaseServiceCrud<Produto>, IProdutoService`. `internal` força o consumo pela interface.
 
 ## Validator
 

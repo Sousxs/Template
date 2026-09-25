@@ -1,11 +1,11 @@
 using Base.Shared.Data;
 using Base.Shared.DependencyInjection;
-using FGR.Sistema.Entities.Inventario;
+using FGR.Sistema.Entities.Catalogo;
 
-namespace FGR.Sistema.Repository.Interface.Inventario;
+namespace FGR.Sistema.Repository.Interface.Catalogo;
 
 [Repository]
-public interface IItemRepository : IRepository<Item>
+public interface IProdutoRepository : IRepository<Produto>
 {
     Task<bool> ExistsCodigoAsync(string codigo, Guid? exceto = null);
 }

@@ -69,9 +69,9 @@ Import relativo só dentro da mesma pasta.
 
 | Coisa | Padrão |
 |---|---|
-| Arquivo de componente, página, hook | PascalCase: `ItemTable.tsx`, `ItemListarPage.tsx`, `UseFilterItemQuery.ts` |
-| Export de hook | camelCase: `useFilterItemQuery` |
-| Service, model, store | `ItemService.ts`, `ItemRequest.ts`, `AppUserStore.ts` |
-| Pasta de feature | kebab-case em português: `item`, `local-estoque`, `pre-cadastro` |
-| Query key | constante exportada ao lado do hook: `export const filterItemQueryKey = 'filterItemQueryKey'` |
+| Arquivo de componente, página, hook | PascalCase: `ProdutoTable.tsx`, `ProdutoListarPage.tsx`, `UseFilterProdutoQuery.ts` |
+| Export de hook | camelCase: `useFilterProdutoQuery` |
+| Service, model, store | `ProdutoService.ts`, `ProdutoRequest.ts`, `AppUserStore.ts` |
+| Pasta de feature | kebab-case em português: `produto`, `local-estoque`, `pre-cadastro` |
+| Query key | constante exportada ao lado do hook: `export const filterProdutoQueryKey = 'filterProdutoQueryKey'` |
 | Chave de i18n | `<feature>.labels.<campo>`, `<feature>.titles.<tela>`, `shared.actions.<botao>` |

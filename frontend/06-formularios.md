@@ -3,7 +3,7 @@
 react-hook-form com resolver de class-validator. O modelo de request é uma classe decorada; o mesmo objeto valida no app e viaja para a API.
 
 ```ts
-export class ItemRequest {
+export class ProdutoRequest {
     @IsNotEmpty({ message: 'validation.required' })
     @MaxLength(200)
     nome: string;
@@ -12,12 +12,12 @@ export class ItemRequest {
     categoriaUuid: string;
 
     @IsOptional() @MaxLength(50)
-    codigoPatrimonio?: string;
+    codigo?: string;
 }
 ```
 
 ```tsx
-const form = useForm<ItemRequest>({ resolver: ClassValidatorResolver(ItemRequest), defaultValues });
+const form = useForm<ProdutoRequest>({ resolver: ClassValidatorResolver(ProdutoRequest), defaultValues });
 ```
 
 ## Kit de formulário

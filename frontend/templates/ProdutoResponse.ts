@@ -1,16 +1,16 @@
-export class ItemResponse {
+export class ProdutoResponse {
     uuid: string;
-    codigoPatrimonio?: string;
+    codigo?: string;
     nome: string;
     categoriaNome: string;
     status: string;
-    dataAquisicao?: string;
+    dataLancamento?: string;
     active: boolean;
 }
 
-export type ItemFilterRequest = {
+export type ProdutoFilterRequest = {
     nome?: string;
-    codigoPatrimonio?: string;
+    codigo?: string;
     status?: string;
     categoriaUuid?: string;
     active?: boolean;

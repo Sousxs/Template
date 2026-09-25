@@ -3,21 +3,21 @@ using Base.Repository.Database;
 using Base.Shared.Data;
 using Base.Shared.DomainValidation;
 using FGR.Sistema.Database;
-using FGR.Sistema.Entities.Inventario;
-using FGR.Sistema.Repository.Interface.Inventario;
+using FGR.Sistema.Entities.Catalogo;
+using FGR.Sistema.Repository.Interface.Catalogo;
 using Microsoft.EntityFrameworkCore;
 
-namespace FGR.Sistema.Repository.Inventario;
+namespace FGR.Sistema.Repository.Catalogo;
 
-internal class ItemRepository(
+internal class ProdutoRepository(
     AppDbContext dbContext,
-    ILogger<IRepository<Item>> logger,
+    ILogger<IRepository<Produto>> logger,
     IDomainValidation validation,
     IMapper mapper)
-    : Repository<Item>(dbContext, logger, mapper, validation), IItemRepository
+    : Repository<Produto>(dbContext, logger, mapper, validation), IProdutoRepository
 {
     public Task<bool> ExistsCodigoAsync(string codigo, Guid? exceto = null) =>
         GetQuery().AsNoTracking()
-            .Where(i => i.CodigoPatrimonio == codigo && (exceto == null || i.Uuid != exceto))
+            .Where(i => i.Codigo == codigo && (exceto == null || i.Uuid != exceto))
             .AnyAsync();
 }

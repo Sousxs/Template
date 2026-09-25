@@ -3,15 +3,15 @@ import type { AxiosInstance } from 'axios';
 import { defaultHttpClientInjectionToken } from '@/config/AxiosHttpClient';
 import { BaseService } from '@core/services/BaseService';
 import { DefaultSelectItem } from '@models/shared/DefaultSelectItem';
-import { ItemRequest } from '@models/item/ItemRequest';
+import { ProdutoRequest } from '@models/produto/ProdutoRequest';
 
 @singleton()
-export class ItemService extends BaseService {
+export class ProdutoService extends BaseService {
     constructor(@inject(defaultHttpClientInjectionToken) protected http: AxiosInstance) {
-        super('/Item', http);
+        super('/Produto', http);
     }
 
-    async persist(request: ItemRequest): Promise<void> {
+    async persist(request: ProdutoRequest): Promise<void> {
         if (request.uuid) await this.update(request.uuid, request);
         else await this.create(request);
     }

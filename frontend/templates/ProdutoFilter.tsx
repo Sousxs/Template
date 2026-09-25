@@ -4,15 +4,15 @@ import { useFilterForm } from '@hooks/UseFilterForm';
 import { useInternationalization } from '@hooks/UseInternationalization';
 import { ButtonFiltrar } from '@components/shared/button/ButtonFiltrar';
 import { ButtonLimparFiltro } from '@components/shared/button/ButtonLimparFiltro';
-import { ItemFilterRequest } from '@models/item/ItemResponse';
-import { useItemListContext } from '@app/context/item/ItemListContext';
+import { ProdutoFilterRequest } from '@models/produto/ProdutoResponse';
+import { useProdutoListContext } from '@app/context/produto/ProdutoListContext';
 
-export const ItemFilter = () => {
-    const { tLabel, tEnum } = useInternationalization('item');
-    const { setFilters } = useItemListContext();
-    const { form, apply, clear } = useFilterForm<ItemFilterRequest>({ onApply: setFilters });
+export const ProdutoFilter = () => {
+    const { tLabel, tEnum } = useInternationalization('produto');
+    const { setFilters } = useProdutoListContext();
+    const { form, apply, clear } = useFilterForm<ProdutoFilterRequest>({ onApply: setFilters });
 
-    const statusOptions = ['EM_ESTOQUE', 'EM_USO', 'EM_MANUTENCAO', 'INATIVO'].map((s) => ({ value: s, label: tEnum('status', s) }));
+    const statusOptions = ['DISPONIVEL', 'EM_HOMOLOGACAO', 'ESGOTADO', 'SUSPENSO'].map((s) => ({ value: s, label: tEnum('status', s) }));
 
     return (
         <form onSubmit={apply} className="filter-panel grid">

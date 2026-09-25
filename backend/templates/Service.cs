@@ -1,58 +1,57 @@
 using AutoMapper;
 using Base.Shared.DomainValidation;
 using Base.Shared.Services;
-using FGR.Sistema.Entities.Inventario;
-using FGR.Sistema.Repository.Interface.Inventario;
+using FGR.Sistema.Entities.Catalogo;
+using FGR.Sistema.Repository.Interface.Catalogo;
 using FGR.Sistema.Repository.Interface.Mestres;
-using FGR.Sistema.Service.Interface.Inventario;
+using FGR.Sistema.Service.Interface.Catalogo;
 using FGR.Sistema.Service.Models.Common;
-using FGR.Sistema.Service.Models.Inventario;
+using FGR.Sistema.Service.Models.Catalogo;
 using FGR.Sistema.Service.Models.Utils;
 
-namespace FGR.Sistema.Service.Inventario;
+namespace FGR.Sistema.Service.Catalogo;
 
-internal class ItemService(
-    IItemRepository repository,
+internal class ProdutoService(
+    IProdutoRepository repository,
     ICategoriaRepository categorias,
-    IItemValidator validator,
+    IProdutoValidator validator,
     IDomainValidation validation,
     IMapper mapper)
-    : BaseServiceCrud<Item>(repository), IItemService
+    : BaseServiceCrud<Produto>(repository), IProdutoService
 {
-    public async Task<ItemResponse?> CriarAsync(ItemRequest request)
+    public async Task<ProdutoResponse?> CriarAsync(ProdutoRequest request)
     {
         GeneralUtils.TrimObjectStringProperties(request);
         await validator.ValidarCriar(request);
         validation.EnsureValid();
 
         var categoria = await categorias.FindAsync(request.CategoriaUuid);
-        var item = mapper.Map<Item>(request);
-        item.Categoria = categoria!;
-        item.VidaUtilMeses ??= categoria!.VidaUtilPadraoMeses;
+        var produto = mapper.Map<Produto>(request);
+        produto.Categoria = categoria!;
 
-        await CreateAsync(item);
-        return mapper.Map<ItemResponse>(item);
+        await CreateAsync(produto);
+        return mapper.Map<ProdutoResponse>(produto);
     }
 
-    public async Task<ItemResponse?> EditarAsync(ItemRequest request, Guid uuid)
+    public async Task<ProdutoResponse?> EditarAsync(ProdutoRequest request, Guid uuid)
     {
         GeneralUtils.TrimObjectStringProperties(request);
         await validator.ValidarEditar(request, uuid);
         validation.EnsureValid();
 
-        var item = (await FindAsync(uuid, i => i.Categoria))!;
-        mapper.Map(request, item);
-        if (item.Categoria.Uuid != request.CategoriaUuid)
-            item.Categoria = (await categorias.FindAsync(request.CategoriaUuid))!;
+        var produto = (await FindAsync(uuid, i => i.Categoria))!;
+        mapper.Map(request, produto);
+        if (produto.Categoria.Uuid != request.CategoriaUuid)
+            produto.Categoria = (await categorias.FindAsync(request.CategoriaUuid))!;
 
-        await EditAsync(item);
-        return mapper.Map<ItemResponse>(item);
+        await EditAsync(produto);
+        return mapper.Map<ProdutoResponse>(produto);
     }
 
-    public async Task<ItemResponse?> ObterAsync(Guid uuid)
+    public async Task<ProdutoResponse?> ObterAsync(Guid uuid)
     {
-        var item = await FindAsNoTrackingAsync(uuid, i => i.Categoria);
-        return item is null ? null : mapper.Map<ItemResponse>(item);
+        var produto = await FindAsNoTrackingAsync(uuid, i => i.Categoria);
+        return produto is null ? null : mapper.Map<ProdutoResponse>(produto);
     }
 
     public async Task<IList<SelectItemResponse>> ListarSelectItemsAsync() =>

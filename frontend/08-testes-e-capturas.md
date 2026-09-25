@@ -2,17 +2,17 @@
 
 ## Playwright com API mockada
 
-A suíte E2E não precisa de API nem de banco. `e2e/fixtures/mock-api.ts` intercepta `**/api/**` com `page.route` e responde de um mapa `"GET /Item" → corpo`. Rota sem mock devolve 404 e aparece na tela.
+A suíte E2E não precisa de API nem de banco. `e2e/fixtures/mock-api.ts` intercepta `**/api/**` com `page.route` e responde de um mapa `"GET /Produto" → corpo`. Rota sem mock devolve 404 e aparece na tela.
 
 ```ts
-test('cria item', async ({ page }) => {
+test('cria produto', async ({ page }) => {
     await seedSession(page, sessao);
-    await mockApi(page, { ...routes, 'POST /Item': { status: 201, body: novoItem } });
-    await page.goto('/item/new');
-    await page.getByLabel('Nome').fill('Cadeira presidente');
+    await mockApi(page, { ...routes, 'POST /Produto': { status: 201, body: novoProduto } });
+    await page.goto('/produto/new');
+    await page.getByLabel('Nome').fill('Cimento CP-II 50 kg');
     await page.getByRole('button', { name: 'Salvar' }).click();
-    const body = await captureRequestBody(page, '/Item');
-    expect(body).toMatchObject({ nome: 'Cadeira presidente' });
+    const body = await captureRequestBody(page, '/Produto');
+    expect(body).toMatchObject({ nome: 'Cimento CP-II 50 kg' });
 });
 ```
 

@@ -1,9 +1,9 @@
 // Trecho de models/permission/PermissionEnum.ts. Mesmos valores de Permissions.cs na API.
 export enum PermissionEnum {
-    ItemListar = 'ITEM.LISTAR',
-    ItemVisualizar = 'ITEM.VISUALIZAR',
-    ItemCriar = 'ITEM.CRIAR',
-    ItemEditar = 'ITEM.EDITAR',
-    ItemAtivarInativar = 'ITEM.ATIVARINATIVAR',
-    ItemExportar = 'ITEM.EXPORTAR'
+    ProdutoListar = 'PRODUTO.LISTAR',
+    ProdutoVisualizar = 'PRODUTO.VISUALIZAR',
+    ProdutoCriar = 'PRODUTO.CRIAR',
+    ProdutoEditar = 'PRODUTO.EDITAR',
+    ProdutoAtivarInativar = 'PRODUTO.ATIVARINATIVAR',
+    ProdutoExportar = 'PRODUTO.EXPORTAR'
 }

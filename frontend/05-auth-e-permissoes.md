@@ -17,7 +17,7 @@ A chave inclui o ambiente (`__fgr_<sistema>_homolog`) para não misturar sessõe
 
 | Nível | Componente | Efeito |
 |---|---|---|
-| Menu | `layouts/AppMenu.tsx` filtra `AppMenuItem.permissions` | Item some do menu |
+| Menu | `layouts/AppMenu.tsx` filtra `AppMenuItem.permissions` | Produto some do menu |
 | Rota | `PermissionRouter permissions={[...]}` no `<X>Router.tsx` | Redireciona para `/erros/permissao` |
 | Elemento | `HasPermission hasAny / hasAll` | Botão, coluna ou seção não renderiza |
 
@@ -29,11 +29,11 @@ Uma entrada por chave da API, com o mesmo valor:
 
 ```ts
 export enum PermissionEnum {
-    ItemListar = 'ITEM.LISTAR',
-    ItemCriar = 'ITEM.CRIAR',
-    ItemEditar = 'ITEM.EDITAR',
-    ItemAtivarInativar = 'ITEM.ATIVARINATIVAR',
-    ItemExportar = 'ITEM.EXPORTAR'
+    ProdutoListar = 'PRODUTO.LISTAR',
+    ProdutoCriar = 'PRODUTO.CRIAR',
+    ProdutoEditar = 'PRODUTO.EDITAR',
+    ProdutoAtivarInativar = 'PRODUTO.ATIVARINATIVAR',
+    ProdutoExportar = 'PRODUTO.EXPORTAR'
 }
 ```
 

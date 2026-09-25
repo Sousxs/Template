@@ -14,14 +14,14 @@ Um por entidade, `@singleton()`, herdando `BaseService`:
 
 ```ts
 @singleton()
-export class ItemService extends BaseService {
+export class ProdutoService extends BaseService {
     constructor(@inject(defaultHttpClientInjectionToken) protected http: AxiosInstance) {
-        super('/Item', http);
+        super('/Produto', http);
     }
 }
 ```
 
-`BaseService` já dá `paginate`, `get`, `getAll`, `create`, `update`, `remove`, `export` e `alterarStatus`. O service concreto adiciona só o que a entidade tem a mais (`selectItems`, `linhaDoTempo`, `importar`). Componentes obtêm o service com `useService(ItemService)`; nunca importam a instância.
+`BaseService` já dá `paginate`, `get`, `getAll`, `create`, `update`, `remove`, `export` e `alterarStatus`. O service concreto adiciona só o que a entidade tem a mais (`selectItems`, `historicoPrecos`, `importar`). Componentes obtêm o service com `useService(ProdutoService)`; nunca importam a instância.
 
 ## Paginação e filtro
 

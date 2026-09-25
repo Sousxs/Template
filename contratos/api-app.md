@@ -4,8 +4,8 @@ O que a API devolve e o app espera. Mudança aqui é mudança nos dois lados, no
 
 ## Identidade
 
-- Todo recurso é endereçado pelo `Uuid`: `GET /Item/{uuid}`. O `Id` numérico não sai da API.
-- Respostas de escrita devolvem o recurso completo (`ItemResponse`), com `uuid`.
+- Todo recurso é endereçado pelo `Uuid`: `GET /Produto/{uuid}`. O `Id` numérico não sai da API.
+- Respostas de escrita devolvem o recurso completo (`ProdutoResponse`), com `uuid`.
 
 ## Rotas
 
@@ -42,8 +42,8 @@ Sem prefixo `/api` na API. O app em desenvolvimento usa `/api` como proxy do Vit
 ```json
 {
   "message": "Revise os campos.",
-  "errors": { "nome": ["Informe o nome."], "codigoPatrimonio": ["Código já cadastrado."] },
-  "domainErrors": ["Item baixado não aceita alteração."],
+  "errors": { "nome": ["Informe o nome."], "codigo": ["Código já cadastrado."] },
+  "domainErrors": ["Produto descontinuado não aceita alteração."],
   "validation": true
 }
 ```
@@ -66,7 +66,7 @@ Sem prefixo `/api` na API. O app em desenvolvimento usa `/api` como proxy do Vit
 
 - Datas em ISO 8601 UTC com `Z`. Data sem hora como `YYYY-MM-DD`.
 - Decimais como número JSON, nunca string. Moeda em reais com duas casas.
-- Enum como string com o nome do valor (`EM_USO`); o app traduz.
+- Enum como string com o nome do valor (`EM_HOMOLOGACAO`); o app traduz.
 
 ## Importação e upload
 

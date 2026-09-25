@@ -50,7 +50,7 @@ Report in the handoff.md Q-table ("Questions raised during implementation"): tas
 ## Definition of Done
 
 - [ ] All tasks `[X]` · tests green, including the AC-covering test tasks · build clean · lint zero warnings
-- [ ] constitution respected · handbook respected (`docs/padroes/checklist-pr.md` = PR template) · contracts honored exactly · commits reference task IDs
+- [ ] constitution respected · handbook respected (`docs/padroes/checklist-pr.md`, embedded in the PR template) · contracts honored exactly · commits reference task IDs
 - [ ] GATE C review done (`/speckit-review`: blast-radius panel + reviewer subagent); critical/high findings fixed or logged as Q-IDs
 - [ ] No edits to `specs/` or `.specify/memory/` beyond `[X]` marks and the Q-table
 

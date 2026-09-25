@@ -24,7 +24,7 @@ scripts/onboard-brownfield.ps1          # projeto existente: snapshot antes da c
 | Criar uma entidade na API | `/fgr-feature <Entidade> <Dominio> backend` ou `docs/padroes/backend/06-feature-completa.md` |
 | Criar uma tela no app | `/fgr-feature <Entidade> <Dominio> frontend` ou `docs/padroes/frontend/03-feature-completa.md` |
 | Saber o que a API devolve e o app espera | `docs/padroes/contratos/api-app.md` |
-| Revisar um pull request | `.github/PULL_REQUEST_TEMPLATE.md` (= `docs/padroes/checklist-pr.md`) |
+| Revisar um pull request | `.github/PULL_REQUEST_TEMPLATE.md` (checklist de `docs/padroes/checklist-pr.md` + gates da esteira) |
 | Adotar em projeto existente | `docs/brownfield.md` |
 | Manutenção (bugs, dívida, segurança...) | `/audit <foco>` ou `/audit` (orquestrado) |
 

@@ -19,13 +19,13 @@ scripts/onboard-brownfield.ps1          # projeto existente: snapshot antes da c
 
 | Você quer | Vá para |
 |---|---|
-| Criar um projeto do zero | `docs/padroes/checklist-novo-projeto.md` |
+| Criar um projeto do zero | prompt pronto em `docs/prompts/novo-projeto.md`; checklist em `docs/padroes/checklist-novo-projeto.md` |
 | Entender as 5 regras de código | `docs/padroes/principios.md` |
 | Criar uma entidade na API | `/fgr-feature <Entidade> <Dominio> backend` ou `docs/padroes/backend/06-feature-completa.md` |
 | Criar uma tela no app | `/fgr-feature <Entidade> <Dominio> frontend` ou `docs/padroes/frontend/03-feature-completa.md` |
 | Saber o que a API devolve e o app espera | `docs/padroes/contratos/api-app.md` |
 | Revisar um pull request | `.github/PULL_REQUEST_TEMPLATE.md` (checklist de `docs/padroes/checklist-pr.md` + gates da esteira) |
-| Adotar em projeto existente | `docs/brownfield.md` |
+| Adotar em projeto existente | prompt pronto em `docs/prompts/projeto-existente.md`; roteiro em `docs/brownfield.md` |
 | Manutenção (bugs, dívida, segurança...) | `/audit <foco>` ou `/audit` (orquestrado) |
 
 ## Mapa do repositório
@@ -62,4 +62,5 @@ Handbook 1.0 (2026-09-24); mudanças em `docs/padroes/CHANGELOG.md`. Cada projet
 
 - `docs/setup.md` — pré-requisitos, segredos de CI (nomes), upgrade do Spec Kit
 - `docs/brownfield.md` — roteiro completo para projeto existente
+- `docs/prompts/` — prompts prontos para colar no Claude Code: projeto novo e projeto existente
 - `docs/skill-catalog.md` — packs opcionais (UI/design, diagramas, review cross-model, MCPs), **nunca pré-instalados**

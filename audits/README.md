@@ -1,20 +1,20 @@
 # audits/ — audit loop logs
 
-Each `/loop-*` skill keeps its coverage + findings log here. Logs are **versioned**: they survive sessions and let audits resume where they stopped (`/loop-bugs continue`).
+Each `/audit <focus>` keeps its coverage + findings log here. Logs are **versioned**: they survive sessions and let audits resume where they stopped (`/audit bugs continue`).
 
-| File | Loop | Content |
-|------|------|---------|
-| BUGFIX-LOG.md | /loop-bugs | per-module coverage, bugs with severity + commit |
-| DEDUP-LOG.md | /loop-dead-code | duplication and dead code (EXTRACT/REMOVE/KEEP) |
-| PERF-LOG.md | /loop-performance | bottlenecks with baseline + measured gain |
-| REFACTOR-LOG.md | /loop-refactor | HIGH/MEDIUM/LOW improvements |
-| SEC-LOG.md | /loop-security | vulnerabilities per surface |
-| TEST-LOG.md | /loop-tests | test gaps per scenario |
-| CONSISTENCY-LOG.md | /loop-consistency | pattern deviations (S/M/L) |
-| UX-LOG.md | /loop-ux | UX friction per flow |
-| DEPS-LOG.md | /loop-deps | dependencies and configs |
-| DOCS-LOG.md | /loop-docs | stale documentation |
-| AUDIT-REPORT.md | /audit-orchestrator | unified triage + consolidated report |
+| File | Focus | Content |
+|------|-------|---------|
+| BUGFIX-LOG.md | `/audit bugs` | per-module coverage, bugs with severity + commit |
+| DEDUP-LOG.md | `/audit dead-code` | duplication and dead code (EXTRACT/REMOVE/KEEP) |
+| PERF-LOG.md | `/audit performance` | bottlenecks with baseline + measured gain |
+| REFACTOR-LOG.md | `/audit refactor` | HIGH/MEDIUM/LOW improvements |
+| SEC-LOG.md | `/audit security` | vulnerabilities per surface |
+| TEST-LOG.md | `/audit tests` | test gaps per scenario |
+| CONSISTENCY-LOG.md | `/audit consistency` | pattern deviations (S/M/L) |
+| UX-LOG.md | `/audit ux` | UX friction per flow |
+| DEPS-LOG.md | `/audit deps` | dependencies and configs |
+| DOCS-LOG.md | `/audit docs` | stale documentation |
+| AUDIT-REPORT.md | `/audit` (orchestrator) | unified triage + consolidated report |
 
 ## Rules
 

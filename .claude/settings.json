@@ -14,8 +14,10 @@
       "Bash(code-review-graph detect-changes:*)",
       "Bash(code-review-graph update:*)",
       "Bash(pwsh -NoProfile -File .specify/scripts/powershell/check-traceability.ps1:*)",
-      "Bash(ocr session:*)",
-      "Bash(ocr delegate preview:*)"
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm test:*)"
     ],
     "deny": [
       "Read(.specify/memory/codebase-snapshot.xml)",

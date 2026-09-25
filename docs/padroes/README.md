@@ -1,5 +1,7 @@
 # Padrões de projeto FGR
 
+> Parte do template FGR (raiz do repositório): a esteira SDD em `CLAUDE.md`/`AGENTS.md` aplica este handbook; `/fgr-feature` gera código a partir dos templates daqui.
+
 Handbook de arquitetura para novas aplicações da FGR: uma API em .NET e um app em React, com as mesmas pastas, camadas, convenções e contratos em todos os projetos. Quem abre um repositório da FGR encontra sempre a mesma estrutura.
 
 Escopo: código e organização. Infraestrutura, pipelines e hospedagem ficam fora deste repositório.

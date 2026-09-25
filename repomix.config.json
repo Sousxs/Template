@@ -16,7 +16,6 @@
       ".specify/**",
       "specs/**",
       ".claude/**",
-      ".agents/**",
       "audits/**",
       "docs/**",
       "**/*.lock",

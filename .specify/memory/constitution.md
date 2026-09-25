@@ -1,50 +1,48 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# [SISTEMA] Constitution
+
+> Pré-preenchida com o handbook FGR (`docs/padroes/`, versão em `docs/padroes/CHANGELOG.md`). Troque `[SISTEMA]`, preencha a seção "Este sistema" e ratifique com `/speckit-constitution`. O que está aqui já é regra em todo projeto FGR; a constitution só acrescenta o que é específico deste sistema.
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Escada de código mínimo (ponytail, vinculante)
+Antes de escrever qualquer código: precisa existir? já existe no repo ou em `Base.*`? stdlib faz? dependência instalada faz? cabe em uma linha? Só então a implementação mínima. A escada corre depois de entender o problema, nunca no lugar de entender. Fonte: `docs/padroes/principios.md` §1.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. O que nunca se simplifica
+Validação na fronteira, tratamento de erro que evita perda de dado, segurança, acessibilidade básica e o que o requisito pede por escrito. Toda lógica não trivial deixa o menor teste que falhe se ela quebrar. Fonte: `principios.md` §2.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Atalho deliberado fica marcado
+`// ponytail: <limite>, <o que fazer quando chegar>`. O `/audit` varre esses comentários. Fonte: `principios.md` §3.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Mesma forma em todo projeto
+Pastas, nomes, camadas e contratos são os de `docs/padroes/` (backend: `backend/01-solution.md` a `07-testes.md`; frontend: `frontend/01-stack.md` a `09-identidade-visual.md`; contrato API×app: `contratos/api-app.md`). Desvio exige PR no handbook primeiro, depois o código. Fonte: `principios.md` §4.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Nome de negócio em português, infraestrutura em inglês
+`Produto`, `ProdutoService`, `ProdutoRequest`; sufixos `Repository`, `Request`, `Response`, `Controller`, `Profile`, `Store`, `Page` em inglês. Fonte: `principios.md` §5.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. Test-first e evidência (NON-NEGOTIABLE)
+Skill `quality-protocols`: nenhum código de produção sem teste que falhe antes; nenhum fix sem causa raiz; nenhum `[X]` sem evidência fresca. Backend: um teste de integração por action de escrita e por regra de autorização. Frontend: um spec Playwright por tela e uma linha em `_visual.spec.ts`.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Convenções de esteira
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- Branch `NNN-nome-da-feature`. Todo commit referencia um ID: `feat: T013 ...` (pipeline), `[BUG-007]` (manutenção), `[Q3]` (finding de handoff).
+- Cadeia de rastreabilidade: user story → task → test task → commit. ACs com ID estável (`AC-001`...). Verificação mecânica: `.specify/scripts/powershell/check-traceability.ps1`.
+- Gates: A (revisão adversarial do plano), B (handoff computado), C (revisão de código). Definições em `AGENTS.md`.
+- Segredos nunca em artefato versionado (specs, contratos, logs, workflows, código). Só nomes de variáveis de ambiente.
+- Pull request segue `.github/PULL_REQUEST_TEMPLATE.md` (checklist do handbook + gates).
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Este sistema
+
+<!-- Preencha em /speckit-constitution. Itens do docs/padroes/checklist-novo-projeto.md, seção "Antes de codar". -->
+
+- **Nome e sigla**: `FGR.[SISTEMA]`
+- **Autenticação**: [provedor externo | emissão própria] (`docs/padroes/backend/05-seguranca.md`)
+- **Fonte das permissões**: [claim de perfil | tabelas]
+- **Identidade visual**: acento e símbolo registrados em `frontend/09-identidade-visual.md` §3.2
+- **Domínios**: [lista de pastas; cada entidade em um domínio]
+- **Brownfield (se aplicável)**: módulos, integrações e padrões que NÃO podem quebrar; modelo de persistência das specs (Living Spec recomendado)
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta constitution prevalece sobre qualquer outra prática do repositório. Emenda exige PR com justificativa e, se mudar convenção do handbook, PR em `docs/padroes/` primeiro. Todo review (gates A e C, `/audit consistency`) verifica conformidade.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: [DATA] | **Last Amended**: [DATA]

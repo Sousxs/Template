@@ -38,6 +38,8 @@
 
 **Current State** *(brownfield — mandatory when code exists)*: [summary of the existing system read from the repomix snapshot (`.specify/memory/codebase-snapshot.xml`): modules touched by this feature, integrations and patterns that MUST NOT break, or "greenfield"]
 
+**Handbook conformance** *(FGR projects)*: [layers, folders, naming and contracts follow `docs/padroes/` (backend 01–07, frontend 01–09, `contratos/api-app.md`); any deviation is listed here with the handbook PR that authorizes it, or N/A]
+
 **Design DNA** *(UI scope only)*: [`specs/NNN-name/design.md` (e.g. hallmark `study` output) or N/A]
 
 ## Constitution Check

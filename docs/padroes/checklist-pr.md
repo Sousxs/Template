@@ -1,6 +1,6 @@
 # Checklist de pull request
 
-Cole no `pull_request_template.md` de cada repositório.
+Fonte do `.github/PULL_REQUEST_TEMPLATE.md` do template (que soma os gates da esteira). Mudou aqui, mude lá.
 
 ## O que muda
 

@@ -1,5 +1,12 @@
 # Checklist de novo projeto
 
+## Passo 0: o template
+
+- [ ] Cada repositório (`<sistema>-api`, `<sistema>-app`) nasce como cópia deste template ("Use this template" no GitHub ou clone + novo remote).
+- [ ] `scripts/setup.ps1` rodado uma vez por máquina.
+- [ ] `PROJECT-COMMANDS.md` com os caminhos reais; `.specify/memory/constitution.md` com a seção "Este sistema" preenchida (`/speckit-constitution`).
+- [ ] Primeira feature pela esteira (`scripts/new-feature.ps1`); entidade e tela geradas com `/fgr-feature`.
+
 ## Antes de codar
 
 - [ ] Nome do sistema (curto, substantivo, em português) e sigla para namespaces: `FGR.<Sistema>`.
@@ -35,4 +42,4 @@
 
 - [ ] Dois repositórios: `<sistema>-api` e `<sistema>-app`.
 - [ ] README de cada um com: nome do sistema, versão do handbook, como rodar, cenário de autenticação, acento.
-- [ ] `pull_request_template.md` com o [checklist-pr.md](checklist-pr.md).
+- [ ] `.github/PULL_REQUEST_TEMPLATE.md` (já vem do template; é o [checklist-pr.md](checklist-pr.md) mais os gates da esteira).

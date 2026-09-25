@@ -1,19 +1,42 @@
-## Feature
+## O que muda
 
-Spec: `specs/NNN-name/` · Branch: `NNN-name`
+Resumo em duas frases: o que e por quê.
 
-## Tasks in this PR
-
-- T0xx — ...
+Spec: `specs/NNN-nome/` · Branch: `NNN-nome` · Tasks: T0xx, T0xx
 
 ## Gates
 
-- [ ] GATE A (adversarial plan review) recorded in handoff.md
-- [ ] GATE B — `check-traceability.ps1` green locally
-- [ ] GATE C (code review) — critical/high findings resolved or filed as Q-IDs
-- [ ] Tests green, incl. AC-covering test tasks · build clean
-- [ ] No secrets in any changed file (env-var names only)
+- [ ] GATE A (revisão adversarial do plano) registrado no handoff.md
+- [ ] GATE B: `check-traceability.ps1` verde localmente
+- [ ] GATE C (revisão de código): findings critical/high resolvidos ou registrados como Q-IDs
+- [ ] Testes verdes, incluindo as test tasks dos ACs · build limpo
+- [ ] Nenhum segredo em arquivo alterado (só nomes de variáveis de ambiente)
 
-## Notes / risks
+## Backend
+
+- [ ] Toda action passa por `ExecuteAsync`, `ExecuteWithSaveChangesAsync` ou `ExecuteWithTransactionAsync`.
+- [ ] `[Permission]` com constante de `Permissions.cs`; chave nova também em `PermissionEnum` do app.
+- [ ] Regras no `Validator`; `Request` sem DataAnnotations.
+- [ ] Entidade nova herda `DefaultEntity`, implementa `IAuditable`, navegações com `[AuditIgnore]`.
+- [ ] Migration com nome descritivo e `Down` funcional.
+- [ ] Um teste de integração por action de escrita e por regra de autorização nova.
+- [ ] Nenhum `Console.WriteLine`, nenhum `SaveChanges` fora do `UnityOfWork`.
+
+## Frontend
+
+- [ ] Textos no `translation.json`; nenhum literal em componente.
+- [ ] Botão e coluna de ação sob `HasPermission`; rota sob `PermissionRouter`.
+- [ ] Formulário com `ClassValidatorResolver` e `formHandleError`.
+- [ ] Query key exportada e invalidada na mutation.
+- [ ] Cores por token; nenhum hex em `.tsx`.
+- [ ] Spec Playwright da tela; linha em `_visual.spec.ts` e captura anexada ao PR.
+- [ ] ESLint sem warnings.
+
+## Dívida
+
+- [ ] Atalhos deliberados marcados com `// ponytail: <limite>, <caminho>`.
+- [ ] Nada em `deprecated/`.
+
+## Notas / riscos
 
 -

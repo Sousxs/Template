@@ -7,7 +7,7 @@
 
 ## Upgrade do Spec Kit (parte do setup padrão)
 
-O setup sobe o Spec Kit para a versão atual (traz `/speckit-converge` e engine de workflows com gates). Exige working tree limpo. As extensões `git` e `bug` **não** são instaladas: `scripts/new-feature.ps1` cobre a primeira e `/audit bugs` a segunda. Se o upgrade recriar `.claude/skills/speckit-taskstoissues/`, apague.
+O setup sobe o Spec Kit para a versão atual (traz `/speckit-converge` e engine de workflows com gates) reinstalando a CLI via **uv** a partir do git (`specify self upgrade` não existe de fato: é comando reservado, não implementado). Sem `uv`, o setup avisa e `specify self check` mostra o comando manual. Exige working tree limpo. As extensões `git` e `bug` **não** são instaladas: `scripts/new-feature.ps1` cobre a primeira e `/audit bugs` a segunda. Se o upgrade recriar `.claude/skills/speckit-taskstoissues/`, apague.
 
 ## Agentes além do Claude Code
 

@@ -6,7 +6,7 @@
 [CmdletBinding()]
 param(
     [switch]$SkipCRG,            # skip code-review-graph
-    [switch]$SkipSpecKitUpgrade  # skip specify self upgrade (commit first when upgrading!)
+    [switch]$SkipSpecKitUpgrade  # skip the Spec Kit CLI upgrade (commit first when upgrading!)
 )
 $ErrorActionPreference = 'Stop'
 
@@ -54,7 +54,13 @@ if (-not $SkipSpecKitUpgrade) {
             Write-Warning 'Working tree not clean — commit first, then re-run for the Spec Kit upgrade.'
         } else {
             Write-Host 'Upgrading Spec Kit (brings /speckit-converge and workflow gates)...'
-            specify self upgrade
+            # `specify self upgrade` is a reserved, unimplemented command (specify-cli <= 0.8.x);
+            # the CLI's own `self check` prescribes reinstalling via uv from the git source.
+            if (Get-Command uv -ErrorAction SilentlyContinue) {
+                uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git
+            } else {
+                Write-Warning 'uv not found — Spec Kit CLI not upgraded. Run `specify self check` and follow its instructions.'
+            }
             specify integration upgrade claude
             # Extensions (git, bug) are intentionally NOT installed: scripts/new-feature.ps1 and /audit bugs cover them.
             # The upgrade may recreate .claude/skills/speckit-taskstoissues; delete it if it comes back.

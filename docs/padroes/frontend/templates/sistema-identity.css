@@ -1,0 +1,17 @@
+/* Identidade do sistema. Um arquivo por sistema, importado depois de fgr-theme.css.
+   Só o que a seção 3 de 09-identidade-visual.md libera: acento, nome, detalhes de superfície. */
+:root {
+    --sys-name: 'Nome do sistema';
+    --sys-accent: #0f766e;
+    --sys-accent-soft: #ccfbf1;
+    --sys-accent-text: #134e4a;
+}
+
+/* KPI com ícone: família "cards brancos com ícone 44 px no acento" */
+.kpi-icon { width: 44px; height: 44px; border-radius: 8px; background: var(--sys-accent-soft); color: var(--sys-accent); display: grid; place-items: center; }
+
+/* Linha fina de acento sob o header (opcional, no máximo 2 px) */
+.app-header { border-bottom: 2px solid var(--sys-accent); }
+
+/* Vazio */
+.empty-icon { background: var(--sys-accent-soft); color: var(--sys-accent); }

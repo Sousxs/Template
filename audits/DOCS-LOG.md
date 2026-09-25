@@ -20,9 +20,9 @@ Baseline: `bb2b145` (main, clean). Build/test/lint: N/A (template repo, no appli
 
 | ID | Where | Class | Evidence | Status | Commit |
 |----|-------|-------|----------|--------|--------|
-| DOCS-001 | `scripts/setup.ps1:57`, `docs/setup.md` §Upgrade | OUTDATED (medium) | `specify self upgrade` → "Reserved command surface for self-upgrade; not implemented" (specify-cli 0.8.17 via uv). `specify self check` prints the real route: `uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git`. Docs/README/AGENTS promise "setup upgrades Spec Kit"; it does not. | fixed | |
-| DOCS-002 | `README.md:27`, `AGENTS.md:53` | OUTDATED (low) | Both say PR template `=` `docs/padroes/checklist-pr.md`; `diff` shows the PR template adds a "Gates" section and "Notas / riscos". The handbook file itself says it is the *source* the template extends. | fixed | |
-| DOCS-003 | `AGENTS.md:9` | MISSING (low) | Reading order step 1 is `.specify/memory/handoff.md`; the template ships none (created by `/speckit-handoff` at GATE B). Fresh clone: agent looks for a file that cannot exist yet. | fixed | |
+| DOCS-001 | `scripts/setup.ps1:57`, `docs/setup.md` §Upgrade | OUTDATED (medium) | `specify self upgrade` → "Reserved command surface for self-upgrade; not implemented" (specify-cli 0.8.17 via uv). `specify self check` prints the real route: `uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git`. Docs/README/AGENTS promise "setup upgrades Spec Kit"; it does not. | fixed |`ba93f6d` |
+| DOCS-002 | `README.md:27`, `AGENTS.md:53` | OUTDATED (low) | Both say PR template `=` `docs/padroes/checklist-pr.md`; `diff` shows the PR template adds a "Gates" section and "Notas / riscos". The handbook file itself says it is the *source* the template extends. | fixed |`618b358` |
+| DOCS-003 | `AGENTS.md:9` | MISSING (low) | Reading order step 1 is `.specify/memory/handoff.md`; the template ships none (created by `/speckit-handoff` at GATE B). Fresh clone: agent looks for a file that cannot exist yet. | fixed |`47ddd96` |
 | DOCS-004 | `PROJECT-COMMANDS.md` | N/A | Says `/audit docs` validates it against reality; in the template there is no `FGR.<Sistema>.*` or app to run against. Re-run this focus in each adopting project. | log-only | |
 
 ## Pending human decision

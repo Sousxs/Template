@@ -1,0 +1,18 @@
+{
+    "item": {
+        "titles": { "list": "Bens", "new": "Novo bem", "edit": "Editar bem", "view": "Bem" },
+        "labels": {
+            "nome": "Nome",
+            "codigoPatrimonio": "Código de patrimônio",
+            "categoria": "Categoria",
+            "status": "Status",
+            "dataAquisicao": "Data de aquisição",
+            "active": "Ativo"
+        },
+        "messages": { "saved": "Bem salvo", "statusChanged": "Status alterado" },
+        "empty": { "title": "Nenhum bem encontrado", "hint": "Ajuste os filtros ou cadastre o primeiro bem" },
+        "enums": {
+            "status": { "EM_ESTOQUE": "Em estoque", "EM_USO": "Em uso", "EM_MANUTENCAO": "Em manutenção", "INATIVO": "Inativo", "BAIXADO": "Baixado" }
+        }
+    }
+}

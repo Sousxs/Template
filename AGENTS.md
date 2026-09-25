@@ -6,7 +6,7 @@
 ## Reading order (before any work)
 
 0. `PROJECT-COMMANDS.md` — canonical build/test/lint commands (never rediscover them)
-1. `.specify/memory/handoff.md` — decisions, risks, open questions
+1. `.specify/memory/handoff.md` — decisions, risks, open questions (created by `/speckit-handoff` at GATE B; absent before that)
 2. `.specify/memory/constitution.md` — non-negotiable principles + conventions (pre-filled from the handbook)
 3. `specs/NNN-feature/spec.md` → `plan.md` → `tasks.md` (+ `contracts/`, `data-model.md`)
 4. `docs/padroes/` — the FGR handbook: how every backend (.NET 8, `backend/`) and frontend (React 18, `frontend/`) is shaped. Read the feature guide (`backend/06-feature-completa.md`, `frontend/03-feature-completa.md`) before creating an entity or screen; copy from `*/templates/`.

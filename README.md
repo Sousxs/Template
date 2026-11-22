@@ -26,13 +26,11 @@ Agente de código sem trilho produz rápido e diverge rápido: cada feature com 
 ## Como funciona
 
 ```mermaid
-flowchart LR
-    C[constitution] --> S[specify] --> CL[clarify] --> CK[checklist] --> P[plan]
-    P --> GA{{GATE A<br/>revisor ataca o plano}}
-    GA --> T[tasks] --> AN[analyze] --> H{{GATE B<br/>handoff só com<br/>rastreabilidade OK}}
-    H --> I[implement<br/>TDD, 1 commit por task]
-    I --> GC{{GATE C<br/>código + segurança<br/>+ checklist do handbook}}
-    GC --> CV[converge]
+flowchart TD
+    A["constitution → specify → clarify → checklist → plan"] --> GA{{"GATE A · revisor ataca o plano"}}
+    GA --> B["tasks → analyze"] --> GB{{"GATE B · rastreabilidade determinística"}}
+    GB --> C["implement · TDD, 1 commit por task"] --> GC{{"GATE C · código + segurança + handbook"}}
+    GC --> D["converge"]
 ```
 
 - **GATE A**: o subagente `plan-reviewer` (somente leitura) procura falhas no plano antes de existir código.

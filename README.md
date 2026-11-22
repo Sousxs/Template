@@ -1,3 +1,5 @@
+![Agentes de código com trilho: Spec-Driven Development com GitHub Spec Kit + Claude Code, gates A (plano revisado), B (rastreabilidade sem LLM) e C (código + segurança)](docs/social-preview.png)
+
 # Template — Esteira SDD com agentes + handbook de arquitetura
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)

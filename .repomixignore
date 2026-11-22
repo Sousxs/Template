@@ -1,0 +1,13 @@
+# Extra ignores for the codebase snapshot (on top of .gitignore + repomix defaults)
+dist/
+build/
+out/
+coverage/
+*.min.js
+*.map
+**/fixtures/**
+**/__snapshots__/**
+*.png
+*.jpg
+*.svg
+*.pdf

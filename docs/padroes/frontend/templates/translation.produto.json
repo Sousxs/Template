@@ -1,0 +1,18 @@
+{
+    "produto": {
+        "titles": { "list": "Produtos", "new": "Novo produto", "edit": "Editar produto", "view": "Produto" },
+        "labels": {
+            "nome": "Nome",
+            "codigo": "Código (SKU)",
+            "categoria": "Categoria",
+            "status": "Status",
+            "dataLancamento": "Data de lançamento",
+            "active": "Ativo"
+        },
+        "messages": { "saved": "Produto salvo", "statusChanged": "Status alterado" },
+        "empty": { "title": "Nenhum produto encontrado", "hint": "Ajuste os filtros ou cadastre o primeiro produto" },
+        "enums": {
+            "status": { "DISPONIVEL": "Disponível", "EM_HOMOLOGACAO": "Em homologação", "ESGOTADO": "Esgotado", "SUSPENSO": "Suspenso", "DESCONTINUADO": "Descontinuado" }
+        }
+    }
+}

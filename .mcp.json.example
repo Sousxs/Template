@@ -1,0 +1,39 @@
+{
+  "_comment": "OPT-IN MCP servers — copy the entries you need into .mcp.json. HARD CAP: max 3 active servers (every server's tool definitions load into EVERY session = token cost). Secrets via env vars ONLY, never values. 'cmd /c' wrapper is required on native Windows.",
+  "mcpServers": {
+    "repomix": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "repomix", "--mcp"]
+    },
+    "context7": {
+      "_when": "plan/research phase — accurate, version-specific library docs (anti-hallucination)",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@upstash/context7-mcp"]
+    },
+    "claude-context": {
+      "_when": "brownfield repos too large for a repomix snapshot — semantic code search (~40% retrieval token cut). Needs Zilliz Cloud (free tier) + embedding key. MILVUS_ADDRESS must be explicit (token-only resolution crashes).",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@zilliz/claude-context-mcp@latest"],
+      "env": {
+        "EMBEDDING_PROVIDER": "OpenAI",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "MILVUS_ADDRESS": "${MILVUS_ADDRESS}",
+        "MILVUS_TOKEN": "${MILVUS_TOKEN}",
+        "CUSTOM_IGNORE_PATTERNS": ".specify/**,specs/**,.claude/**,.agents/**,audits/**"
+      }
+    },
+    "github": {
+      "_when": "PR/issue automation beyond gh CLI — powers /speckit-taskstoissues and PR loops",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "serena": {
+      "_when": "large brownfield — symbol-level code operations via LSP instead of full-file reads. Needs Python + uv.",
+      "command": "cmd",
+      "args": ["/c", "uvx", "--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "ide-assistant", "--project", "."]
+    }
+  }
+}

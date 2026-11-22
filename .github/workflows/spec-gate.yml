@@ -1,0 +1,49 @@
+# Spec-traceability gate. Job 1 is deterministic (free, candidate for a required check).
+# Job 2 is an advisory LLM review — cost-capped: no `synchronize` trigger, --max-turns 15,
+# tight tool allowlist, OAuth subscription auth.
+name: Spec Gate
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  traceability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Deterministic traceability check
+        shell: pwsh
+        run: ./.specify/scripts/powershell/check-traceability.ps1 -BaseBranch "origin/${{ github.base_ref }}"
+
+  review:
+    runs-on: ubuntu-latest
+    needs: traceability
+    if: always()   # advisory review runs even when the deterministic job fails
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
+          prompt: |
+            PR ${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            Enforce this repo's spec-traceability gates (see CLAUDE.md/AGENTS.md):
+            - every commit references a work ID (Txxx from specs/*/tasks.md, or [BUG-n]-style maintenance IDs)
+            - branch matches NNN-feature-name
+            - each acceptance criterion (AC-xxx) in spec.md has a test task in tasks.md
+            - zero [NEEDS CLARIFICATION] in spec.md
+            - no secrets in any changed file (values, not env-var names)
+            Post inline comments for violations; end with a summary comment: PASS or FAIL + reasons.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(git log:*),Read"
+            --max-turns 15

@@ -1,0 +1,8 @@
+generated/**
+*.generated.*
+vendor/**
+node_modules/**
+.specify/**
+specs/**
+audits/**
+docs/**

@@ -1,0 +1,21 @@
+# Structural risk review via code-review-graph — blast-radius analysis of the PR diff
+# (affected callers/dependents/tests) posted as a sticky risk panel. Uses the built-in
+# GITHUB_TOKEN — no extra secrets. Pinned to a release tag.
+name: CRG Review
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: tirth8205/code-review-graph@v2.3.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

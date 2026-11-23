@@ -27,13 +27,7 @@ Agente de código sem trilho produz rápido e diverge rápido: cada feature com 
 
 ## Como funciona
 
-```mermaid
-flowchart TD
-    A["constitution → specify → clarify → checklist → plan"] --> GA{{"GATE A · revisor ataca o plano"}}
-    GA --> B["tasks → analyze"] --> GB{{"GATE B · rastreabilidade determinística"}}
-    GB --> C["implement · TDD, 1 commit por task"] --> GC{{"GATE C · código + segurança + handbook"}}
-    GC --> D["converge"]
-```
+![Esteira em duas raias: o agente passa por especificar, planejar tasks, implementar e convergir; entre as etapas ficam o gate A (revisor de IA ataca o plano), o gate B (script de rastreabilidade, sem LLM) e o gate C (revisão de código e segurança)](docs/diagrama-esteira.png)
 
 - **GATE A**: o subagente `plan-reviewer` (somente leitura) procura falhas no plano antes de existir código.
 - **GATE B**: `check-traceability.ps1` precisa passar: nenhum `[NEEDS CLARIFICATION]` pendente, todo critério de aceite (`AC-001`…) referenciado em `tasks.md`, todo commit com o ID da task e varredura de segredos nos artefatos.
@@ -103,6 +97,7 @@ Handbook **1.3**; histórico em [`docs/padroes/CHANGELOG.md`](docs/padroes/CHANG
 
 ## Créditos
 
+- [diagram-design](https://github.com/cathrynlavery/diagram-design) (MIT): design system do diagrama da esteira.
 - [GitHub Spec Kit](https://github.com/github/spec-kit) (MIT): base da esteira, das skills `speckit-*` e de `.specify/`.
 - [repomix](https://github.com/yamadashy/repomix) e [code-review-graph](https://github.com/tirth8205/code-review-graph): contexto de código e análise de risco.
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code): skills, subagentes e GitHub Action.
